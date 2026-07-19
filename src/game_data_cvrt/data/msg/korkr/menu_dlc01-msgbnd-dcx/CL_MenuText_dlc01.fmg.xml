@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<fmg>
+<filename>CL_MenuText_dlc01.fmg</filename>
+<compression>None</compression>
+<version>DarkSouls3</version>
+<bigendian>False</bigendian>
+<entries>
+<text id="11411">1 슬롯 최대 소지 수</text>
+<text id="11412">%null%</text>
+<text id="11413">%null%</text>
+<text id="11414">%null%</text>
+<text id="11415">%null%</text>
+<text id="11416">%null%</text>
+<text id="11417">%null%</text>
+<text id="11418">%null%</text>
+<text id="11419">%null%</text>
+<text id="11420">아이템 카테고리</text>
+<text id="11508">레벨</text>
+<text id="20020">학자-어빌리티[휴대 지식]</text>
+<text id="65000">없음</text>
+<text id="65001">투척 무기</text>
+<text id="65002">항아리</text>
+<text id="65003">이끼약</text>
+<text id="65004">돌</text>
+<text id="65005">물방울</text>
+<text id="65006">조향술</text>
+<text id="65007">기름</text>
+<text id="65008">음식</text>
+<text id="65009">특별</text>
+<text id="101013">전투 기술 변경</text>
+<text id="101014">전투 기술 되돌리기</text>
+<text id="102018">예배당</text>
+<text id="104150">변경 전</text>
+<text id="104151">%null%</text>
+<text id="104152">%null%</text>
+<text id="104153">%null%</text>
+<text id="104154">%null%</text>
+<text id="104155">%null%</text>
+<text id="104156">%null%</text>
+<text id="104157">%null%</text>
+<text id="104158">%null%</text>
+<text id="104159">%null%</text>
+<text id="104160">변경 후</text>
+<text id="110028">탐구 카메라 속도</text>
+<text id="110029">탐구 카메라 속도</text>
+<text id="131042">구원의 기수</text>
+<text id="131058">안녕을 가져오는 자들</text>
+<text id="131059">잔해의 왕</text>
+<text id="131060">%null%</text>
+<text id="131061">%null%</text>
+<text id="131062">%null%</text>
+<text id="131063">%null%</text>
+<text id="131064">%null%</text>
+<text id="131065">%null%</text>
+<text id="131066">%null%</text>
+<text id="131067">%null%</text>
+<text id="131068">하르모니아</text>
+<text id="131069">스트라게스</text>
+<text id="131070">%null%</text>
+<text id="131071">%null%</text>
+<text id="131072">%null%</text>
+<text id="131073">%null%</text>
+<text id="131074">%null%</text>
+<text id="131075">%null%</text>
+<text id="131076">%null%</text>
+<text id="131077">%null%</text>
+<text id="131078">흰 갑옷을 두른 일곱 명의 전쟁 처녀.
+영웅의 무기를 쥐고 혼돈을 정화하는,
+세계를 조정하는 하늘의 사자와도 같다.
+
+제아무리 영웅이라도 언젠가 잠에 든다.
+그렇다면 역사에 매장하면 된다.</text>
+<text id="131079">수많은 사체와 잔해를 이은 시귀.
+만연한 원망은 잘리고 짓밟힌다 해도
+집념으로 꿈틀대며 모든 것을 파괴한다.
+
+도저히 생명이라 할 수 없는 망집 덩어리에
+제대로 된 약점은 없다.</text>
+<text id="131114">발생 중인 지변: 대공동
+※&lt;?sysmsg@40000?&gt;의 표적 선택 필요</text>
+<text id="132553">출격 시 배치</text>
+<text id="136012">매각</text>
+<text id="136127">출격 시 무기(마술/기도)</text>
+<text id="136200">현재 배치에 적용</text>
+<text id="136201">이름 변경</text>
+<text id="136202">마커</text>
+<text id="136203">정렬 순서 변경</text>
+<text id="136204">현재 배치에 덮어쓰기</text>
+<text id="136205">등록 일시 표시 전환</text>
+<text id="136220">프리셋 이름을 입력해주십시오</text>
+<text id="138580">틈새의 땅을 찾아 걷는 연구자.
+야로다스 연구관의 일원이며
+여행을 통해 식견을 넓힌다.
+병으로 인해 몸이 급속도로 늙어가고 있다.
+
+신비가 뛰어나며 다른 능력치는 뒤떨어지나
+싸움터를 장악하는 힘이 뛰어나
+단순히 계측할 수 없는 능력을 지닌다.
+
+특기 무기: 자검</text>
+<text id="138581">%null%</text>
+<text id="138582">%null%</text>
+<text id="138583">%null%</text>
+<text id="138584">%null%</text>
+<text id="138585">%null%</text>
+<text id="138586">%null%</text>
+<text id="138587">%null%</text>
+<text id="138588">%null%</text>
+<text id="138589">%null%</text>
+<text id="138590">밤의 왕을 죽이라는 주명을 따르는 수도녀.
+체구에 걸맞지 않는 힘 때문에 기피당하며
+죽은 자를 매장하는 역할을 떠맡았다.
+
+근력과 신앙이 뛰어나며
+적을 잇따라 손쉽게 죽음으로 쫓아내는
+존재감 없는 배웅자이다.
+
+특기 무기: 망치</text>
+<text id="144790">소지 가능한 아이템 수를 늘리며
+사용에 따라 단계적으로 강화된다</text>
+<text id="144791">%null%</text>
+<text id="144792">%null%</text>
+<text id="144793">%null%</text>
+<text id="144794">%null%</text>
+<text id="144795">아군 또는 일부 적 공격 시 아츠 발동 가능</text>
+<text id="144890">&lt;?keyicon@127##10?&gt;: 탐구 시작</text>
+<text id="144891">&lt;?keyicon@120##10?&gt;: 적에게 발동
+&lt;?keyicon@118##10?&gt;: 나에게 발동
+&lt;?keyicon@127##10?&gt;: 중단</text>
+<text id="144892">%null%</text>
+<text id="144893">%null%</text>
+<text id="144894">%null%</text>
+<text id="144895">&lt;?keyicon@127##10?&gt;: 발동
+아츠 게이지 최대 시 &lt;?keyicon@127##10?&gt; 길게 누르기: 강화 발동
+※&lt;?keyicon@127##10?&gt; 길게 누르기 중 &lt;?keyicon@118##10?&gt;도 발동 가능</text>
+<text id="144896">&lt;?keyicon@127##10?&gt;: 스킬 해제</text>
+<text id="144990">&lt;?keyicon@126##10?&gt;: 발동</text>
+<text id="144991">%null%</text>
+<text id="144992">%null%</text>
+<text id="144993">%null%</text>
+<text id="144994">%null%</text>
+<text id="144995">&lt;?keyicon@126##10?&gt;: 발동</text>
+<text id="146712">&lt;?text1?&gt;의 전투 기술을 변경했다.</text>
+<text id="146713">&lt;?text1?&gt;의 전투 기술을 되돌렸다.</text>
+<text id="148010">신전 답파 보수</text>
+<text id="148011">%null%</text>
+<text id="148012">%null%</text>
+<text id="148013">%null%</text>
+<text id="148014">%null%</text>
+<text id="148015">%null%</text>
+<text id="148016">%null%</text>
+<text id="148017">%null%</text>
+<text id="148018">%null%</text>
+<text id="148019">%null%</text>
+<text id="148020">초회 답파 보수</text>
+<text id="238000">전투 기술 변경(1회 한정)</text>
+<text id="238001">전투 기술 되돌리기(1회 한정)</text>
+<text id="238020">변경 완료</text>
+<text id="238021">변경 후만</text>
+<text id="288058">학자</text>
+<text id="288059">장의사</text>
+<text id="335080">작업대에는 화로의 불이 필요하다</text>
+<text id="335081">지금은 조사할 수 없다</text>
+<text id="335082">제단은 봉인되어 있다</text>
+<text id="336012">BALANCE DISRUPTED</text>
+<text id="336013">CALAMITY OVERCOME</text>
+<text id="337420">신전에 「화염」의 힘이 소용돌이친다.</text>
+<text id="337421">신전에 「마력」이 가득 차 있다.</text>
+<text id="337422">신전에 「벼락」의 힘이 울려 퍼진다.</text>
+<text id="337423">신전은 「신성」한 힘의 축복을 받았다.</text>
+<text id="337424">신전에 「독」 기운이 충만하다.</text>
+<text id="337425">신전을 「붉은 부패」가 잠식하고 있다.</text>
+<text id="337426">신전은 「출혈」의 피를 요구하고 있다.</text>
+<text id="337427">신전은 「동상」을 입을 만큼 싸늘하다.</text>
+<text id="337428">신전은 온갖 존재를 조용히 치유한다.</text>
+<text id="337429">신전은 온갖 존재를 엄격히 깎아낸다.</text>
+<text id="337520">아이템 취급 레벨이 상승[2]</text>
+<text id="337521">아이템 취급 레벨이 상승[3]</text>
+<text id="337880">새로운 표적이 출현했다.</text>
+<text id="337881">새로운 표적이 출현했다.</text>
+<text id="337882">%null%</text>
+<text id="337883">%null%</text>
+<text id="337884">%null%</text>
+<text id="337885">입문서에 항목이 추가됐다.</text>
+<text id="337886">지도서에 항목이 추가됐다.</text>
+<text id="337887">입문서와 지도서에 항목이 추가됐다.</text>
+<text id="337888">%null%</text>
+<text id="337889">%null%</text>
+<text id="337890">전투 기술을 변경했다.</text>
+<text id="337891">전투 기술을 되돌렸다.</text>
+<text id="337892">이 무기는 전투 기술을 변경할 수 없다.</text>
+<text id="337893">이 무기는 전투 기술을 되돌릴 수 없다.</text>
+<text id="337954">지변 발생 중: 대공동</text>
+<text id="337955">%null%</text>
+<text id="337956">%null%</text>
+<text id="337957">%null%</text>
+<text id="337958">%null%</text>
+<text id="337959">지변이 수습됐다.</text>
+<text id="337960">%null%</text>
+<text id="337961">%null%</text>
+<text id="337962">%null%</text>
+<text id="337963">%null%</text>
+<text id="337964">%null%</text>
+<text id="337965">%null%</text>
+<text id="337966">%null%</text>
+<text id="337967">%null%</text>
+<text id="337968">개인 목표 진행 중</text>
+<text id="337969">개인 목표 진행 중</text>
+<text id="337987">목표 지점을 조사할 수 있게 되었다.</text>
+<text id="337988">목표 지점을 조사할 수 있게 되었다.</text>
+<text id="337989">목표 지점을 조사할 수 있게 되었다.</text>
+<text id="337990">%null%</text>
+<text id="337991">%null%</text>
+<text id="337992">%null%</text>
+<text id="337993">%null%</text>
+<text id="337994">%null%</text>
+<text id="337995">부패숲의 은총이 지닌 힘 일부가 사라졌다.</text>
+<text id="338490">복제의 제단을 사용할 수 있다.</text>
+<text id="338491">%null%</text>
+<text id="338492">%null%</text>
+<text id="338493">%null%</text>
+<text id="338494">%null%</text>
+<text id="338495">%null%</text>
+<text id="338496">%null%</text>
+<text id="338497">%null%</text>
+<text id="338498">%null%</text>
+<text id="338499">%null%</text>
+<text id="338500">화염을 부르는 짐승이 나타났다.</text>
+<text id="338501">%null%</text>
+<text id="338502">%null%</text>
+<text id="338503">%null%</text>
+<text id="338504">%null%</text>
+<text id="338505">%null%</text>
+<text id="338506">%null%</text>
+<text id="338507">%null%</text>
+<text id="338508">%null%</text>
+<text id="338509">%null%</text>
+<text id="338510">화염을 부르는 짐승을 모두 격파했다.</text>
+<text id="338511">화염을 부르는 짐승을 격파했다.</text>
+<text id="338512">화염을 부르는 짐승을 격파했다.</text>
+<text id="338513">%null%</text>
+<text id="338514">%null%</text>
+<text id="338515">%null%</text>
+<text id="338516">%null%</text>
+<text id="338517">%null%</text>
+<text id="338518">%null%</text>
+<text id="338519">%null%</text>
+<text id="338520">화염을 부르는 짐승이 물러났다.</text>
+<text id="338521">%null%</text>
+<text id="338522">%null%</text>
+<text id="338523">%null%</text>
+<text id="338524">%null%</text>
+<text id="338525">화염을 부르는 짐승이 맹렬히 공격한다.</text>
+<text id="338526">화염을 부르는 짐승의 위치가 밝혀졌다.</text>
+<text id="338527">%null%</text>
+<text id="338528">%null%</text>
+<text id="338529">%null%</text>
+<text id="338530">전투 기술 작업대를 사용할 수 있다.</text>
+<text id="338600">얼음 안개가 끼고 우박이 내리기 시작했다.</text>
+<text id="338601">%null%</text>
+<text id="338602">%null%</text>
+<text id="338603">%null%</text>
+<text id="338604">%null%</text>
+<text id="338605">%null%</text>
+<text id="338606">%null%</text>
+<text id="338607">%null%</text>
+<text id="338608">%null%</text>
+<text id="338609">%null%</text>
+<text id="338610">얼음 안개가 걷혔다.</text>
+<text id="338611">%null%</text>
+<text id="338612">%null%</text>
+<text id="338613">%null%</text>
+<text id="338614">%null%</text>
+<text id="338615">%null%</text>
+<text id="338616">%null%</text>
+<text id="338617">%null%</text>
+<text id="338618">%null%</text>
+<text id="338619">%null%</text>
+<text id="338620">얼음 안개가 걷혔다.</text>
+<text id="338700">안녕을 가져오는 자들이 심판을 내린다.</text>
+<text id="338701">%null%</text>
+<text id="338702">%null%</text>
+<text id="338703">%null%</text>
+<text id="338704">%null%</text>
+<text id="338705">%null%</text>
+<text id="338706">%null%</text>
+<text id="338707">%null%</text>
+<text id="338708">%null%</text>
+<text id="338709">%null%</text>
+<text id="338710">성배병 사용 횟수를 빼앗겼다.</text>
+<text id="338711">%null%</text>
+<text id="338712">%null%</text>
+<text id="338713">%null%</text>
+<text id="338714">%null%</text>
+<text id="338715">%null%</text>
+<text id="338716">%null%</text>
+<text id="338717">%null%</text>
+<text id="338718">%null%</text>
+<text id="338719">%null%</text>
+<text id="338720">성배병 사용 횟수를 일부 되찾았다.</text>
+<text id="338721">%null%</text>
+<text id="338722">%null%</text>
+<text id="338723">%null%</text>
+<text id="338724">%null%</text>
+<text id="338725">%null%</text>
+<text id="338726">%null%</text>
+<text id="338727">%null%</text>
+<text id="338728">%null%</text>
+<text id="338729">%null%</text>
+<text id="338730">성배병 사용 횟수를 모두 되찾았다.</text>
+<text id="338731">%null%</text>
+<text id="338732">%null%</text>
+<text id="338733">%null%</text>
+<text id="338734">%null%</text>
+<text id="338735">%null%</text>
+<text id="338736">%null%</text>
+<text id="338737">%null%</text>
+<text id="338738">%null%</text>
+<text id="338739">%null%</text>
+<text id="338740">안녕을 가져오는 자가 떠났다.</text>
+<text id="338741">%null%</text>
+<text id="338742">%null%</text>
+<text id="338743">%null%</text>
+<text id="338744">%null%</text>
+<text id="338745">%null%</text>
+<text id="338746">%null%</text>
+<text id="338747">%null%</text>
+<text id="338748">%null%</text>
+<text id="338749">%null%</text>
+<text id="338750">안녕을 가져오는 자들이 모두 떠났다.</text>
+<text id="338800">대결정에 금이 갔다.</text>
+<text id="338801">대결정이 부서졌다.</text>
+<text id="338802">공명하는 결정의 위치가 밝혀졌다.</text>
+<text id="338803">%null%</text>
+<text id="338804">%null%</text>
+<text id="338805">변이체가 침입했다!</text>
+<text id="338806">변이체를 쓰러뜨렸다.</text>
+<text id="338807">%null%</text>
+<text id="338808">%null%</text>
+<text id="338809">%null%</text>
+<text id="338810">봉인이 해제됐다.</text>
+<text id="338811">%null%</text>
+<text id="338812">%null%</text>
+<text id="338813">%null%</text>
+<text id="338814">%null%</text>
+<text id="338815">%null%</text>
+<text id="338816">%null%</text>
+<text id="338817">%null%</text>
+<text id="338818">%null%</text>
+<text id="338819">%null%</text>
+<text id="338820">요새 높은 곳에 이변이 발생했다.</text>
+<text id="338821">변이체를 쓰러뜨렸다.</text>
+<text id="411008">스킬 [탐구]</text>
+<text id="411009">스킬 [트랜스]</text>
+<text id="411010">%null%</text>
+<text id="411011">%null%</text>
+<text id="411012">%null%</text>
+<text id="411013">%null%</text>
+<text id="411014">%null%</text>
+<text id="411015">%null%</text>
+<text id="411016">%null%</text>
+<text id="411017">%null%</text>
+<text id="411018">탐구</text>
+<text id="411019">트랜스</text>
+<text id="412008">단안경으로 관찰해 특성을 기록한다.
+글씨는 영이 되어 다양한 효과를 준다.</text>
+<text id="412009">스스로 사혈해 불길한 힘을 깨운다.</text>
+<text id="412108">탐구 진척률은 관찰을 지속하면 상승한다.
+탐구한 적 표본 수, 특기사항 발견, 아군의
+포함 여부 등에 따라 진척 효율이 변한다.</text>
+<text id="412109">운동 성능을 높이며 공격을 거듭하면 공격력을
+높인다. 모든 아츠 게이지를 소비하면
+더 불길한 힘을 일깨운다.</text>
+<text id="413008">아츠 [공감술]</text>
+<text id="413009">아츠 [불길한 일격]</text>
+<text id="413010">%null%</text>
+<text id="413011">%null%</text>
+<text id="413012">%null%</text>
+<text id="413013">%null%</text>
+<text id="413014">%null%</text>
+<text id="413015">%null%</text>
+<text id="413016">%null%</text>
+<text id="413017">%null%</text>
+<text id="413018">공감술</text>
+<text id="413019">불길한 일격</text>
+<text id="414008">금서의 종이 조각을 뿌려 주위를
+링크시키고 대미지를 전파, 전환한다.</text>
+<text id="414009">몸에서 이형의 뼈를 꺼내
+목표를 향해 재빨리 이동하고 찌른다.</text>
+<text id="414108">링크한 적에게 준 대미지는 다른 적에게
+전파되고, 링크한 아군의 HP를 회복한다.
+링크한 적이 준 대미지는 상대에게 전파된다.</text>
+<text id="414109">공격은 재빠르고 공중도 이동할 수 있다.</text>
+<text id="415008">어빌리티 [휴대 지식]</text>
+<text id="415009">어빌리티 [힘의 감응]</text>
+<text id="415010">%null%</text>
+<text id="415011">%null%</text>
+<text id="415012">%null%</text>
+<text id="415013">%null%</text>
+<text id="415014">%null%</text>
+<text id="415015">%null%</text>
+<text id="415016">%null%</text>
+<text id="415017">%null%</text>
+<text id="415018">휴대 지식</text>
+<text id="415019">힘의 감응</text>
+<text id="416008">소지 가능한 아이템 수를 늘리며
+사용에 따라 단계적으로 강화된다</text>
+<text id="416009">타인이 아츠 발동 시 함께 발동할 수 있다.
+이 경우 아츠 게이지가 필요하지 않다.</text>
+<text id="416010">%null%</text>
+<text id="416011">%null%</text>
+<text id="416012">%null%</text>
+<text id="416013">%null%</text>
+<text id="416014">%null%</text>
+<text id="416015">%null%</text>
+<text id="416016">%null%</text>
+<text id="416017">%null%</text>
+<text id="416018">아이템은 카테고리별로 레벨이 있다.
+레벨 2는 효과가 강화되며
+레벨 3은 추가 효과를 발동한다.</text>
+<text id="416019">일부 적이 사용하는 어둠을 두른 공격을
+빼앗은 경우에도 아츠를 발동할 수 있다.</text>
+</entries>
+</fmg>

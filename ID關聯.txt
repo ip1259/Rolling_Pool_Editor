@@ -1,0 +1,7 @@
+AttachEffectParam/attachTextId -> Text.AttachEffect.id
+AttachEffectParam/attachFilterParamId -> AttachEffectFilterParam/ID
+AttachEffectFilterParam/filterTextId -> Text.AttachEffect.id
+AttachEffectFilterParam/attachEffectFilterCategory -> AttachEffectFilterSubCategoryParam/ID
+AttachEffectFilterSubCategoryParam/textId -> Text.Menu.id
+AttachEffectFilterSubCategoryParam/filterCategory -> AttachEffectFilterCategoryParam/ID
+AttachEffectFilterCategoryParam/textId -> Text.Menu.id

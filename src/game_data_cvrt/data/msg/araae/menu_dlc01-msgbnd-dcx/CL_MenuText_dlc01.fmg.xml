@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<fmg>
+<filename>CL_MenuText_dlc01.fmg</filename>
+<compression>None</compression>
+<version>DarkSouls3</version>
+<bigendian>False</bigendian>
+<entries>
+<text id="11411">اﻟﺣﺩ اﻷﻗﺻﻰ ﻟﻛﻝ ﻣﻭﺿﻊ</text>
+<text id="11412">%null%</text>
+<text id="11413">%null%</text>
+<text id="11414">%null%</text>
+<text id="11415">%null%</text>
+<text id="11416">%null%</text>
+<text id="11417">%null%</text>
+<text id="11418">%null%</text>
+<text id="11419">%null%</text>
+<text id="11420">ﻓﺋﺔ اﻟﻌﻧﺻﺭ</text>
+<text id="11508">اﻟﻣﺳﺗﻭى</text>
+<text id="20020">اﻟﺩارس: ﻗﻭة اﻟﺣﻣﻝ</text>
+<text id="65000">ﻻ ﺷﻲء</text>
+<text id="65001">ﺳﻬﺎم</text>
+<text id="65002">ﻗﺩور</text>
+<text id="65003">أﻗﺭاص</text>
+<text id="65004">أﺣﺟﺎر</text>
+<text id="65005">دﻣﻭع ﺑﻠﻭرﻳﺔ</text>
+<text id="65006">ﻓﻧﻭن ﻋﻁﺭﻳﺔ</text>
+<text id="65007">ﺷﺣﻭم</text>
+<text id="65008">ﻁﻌﺎم</text>
+<text id="65009">أدوات ﺧﺎﺻﺔ</text>
+<text id="101013">ﺗﻐﻳﻳﺭ ﻣﻬﺎرة</text>
+<text id="101014">اﺳﺗﺭﺟﺎع ﻣﻬﺎرة</text>
+<text id="102018">ﻛﻧﻳﺳﺔ</text>
+<text id="104150">ﻗﺑﻝ اﻟﺗﻐﻳﻳﺭ</text>
+<text id="104151">%null%</text>
+<text id="104152">%null%</text>
+<text id="104153">%null%</text>
+<text id="104154">%null%</text>
+<text id="104155">%null%</text>
+<text id="104156">%null%</text>
+<text id="104157">%null%</text>
+<text id="104158">%null%</text>
+<text id="104159">%null%</text>
+<text id="104160">ﺑﻌﺩ اﻟﺗﻐﻳﻳﺭ</text>
+<text id="110028">ﺳﺭﻋﺔ ﻛﺎﻣﻳﺭا اﻟﺗﺣﻠﻳﻝ</text>
+<text id="110029">ﺳﺭﻋﺔ ﻛﺎﻣﻳﺭا اﻟﺗﺣﻠﻳﻝ</text>
+<text id="131042">ﺣﺎﻣﻠﻭ ﻟﻭاء اﻟﻣﺳﺎﻧﺩة</text>
+<text id="131058">اﻟﺿﺎﺑﻁﺎت</text>
+<text id="131059">ﻟﻭرد اﻟﺭﻛﺎم</text>
+<text id="131060">%null%</text>
+<text id="131061">%null%</text>
+<text id="131062">%null%</text>
+<text id="131063">%null%</text>
+<text id="131064">%null%</text>
+<text id="131065">%null%</text>
+<text id="131066">%null%</text>
+<text id="131067">%null%</text>
+<text id="131068">ﻫﺎرﻣﻭﻧﻳﺎ</text>
+<text id="131069">ﺳﺗﺭاﻏﻬﻳﺱ</text>
+<text id="131070">%null%</text>
+<text id="131071">%null%</text>
+<text id="131072">%null%</text>
+<text id="131073">%null%</text>
+<text id="131074">%null%</text>
+<text id="131075">%null%</text>
+<text id="131076">%null%</text>
+<text id="131077">%null%</text>
+<text id="131078">ﺳﺑﻊ ﻋﺫراوات ﻳﺭﺗﺩﻳﻥ دروﻋًﺎ ﺑﻳﺿﺎء. أوﻟﺋﻙ
+اﻟﺧﺎدﻣﺎت اﻟﺳﻣﺎوﻳﺎت ﻳﺳﺗﻌﺩن اﺗﺯان اﻟﻌﺎﻟﻡ
+ﺑﺎﺳﺗﺧﺩام أﺳﻠﺣﺔ ﺑﻁﻭﻟﻳﺔ ﺗﺑﺩد اﻟﻔﻭﺿﻰ.
+
+ﻟﻛﻥ ﻻ ﻳﻔﺭ أﺣﺩ ﻣﻥ اﻟﻧﻭم اﻷﺑﺩي ﺣﺗﻰ اﻟﺑﻁﻼت
+ﻓﻠﻣﺎذا ﻟﻡ ﻳﺄوﻳﻥ إﻟﻰ ﺣﻭﻟﻳﺎت اﻟﺗﺎرﻳﺦ ﻣﺳﺑﺎ؟</text>
+<text id="131079">ﻋﺩو ﻳﺗﺄﻟﻑ ﻣﻥ رﻓﺎت ﻋﺩد ﻻ ﺣﺻﺭ ﻟﻪ ﻣﻥ اﻟﺟﺛﺙ
+واﻟﻣﺧﻠﻔﺎت اﻟﻣﻬﻣﻠﺔ.
+ﻋﻠﻰ اﻟﺭﻏﻡ ﻣﻥ ﺗﻣﺯﻗﻬﺎ أو اﻧﺳﺣﺎﻗﻬﺎ، ﻫﻲ ﺑﻭﺗﻘﺔ
+ﻟﺣﻧﻖ ﻣﺗﺄﺟﺞ ﻳﺟﻌﻠﻪ ﻳﻔﻭق أي وﺣﺵ ﻣﺩﻣﺭ ﺑﻁﺷًﺎ.
+ﻛﺗﻠﺔ اﻟﺟﺛﺙ اﻟﻬﺎﺋﻠﺔ ﻫﺫه ﻟﻳﺱ ﻟﻬﺎ ﻧﻘﺎط ﺿﻌﻑ
+ﻋﻠﻰ ﻋﻛﺱ أي ﻛﺎﺋﻥ وُﺟﺩ ﻋﻠﻰ اﻹﻁﻼق.</text>
+<text id="131114">اﻟﺣﻔﺭة اﻟﻌﻅﻳﻣﺔ
+ﺗﻧﺑﻳﻪ: ﻻ ﺗﺣﺩث إﻻ ﻣﻊ أﻫﺩاف &lt;?sysmsg@40000?&gt;</text>
+<text id="132553">ﻣﻭاﺿﻊ اﻟﺑﺩء</text>
+<text id="136012">ﺑﻳﻊ</text>
+<text id="136127">أﺳﻠﺣﺔ اﻟﺑﺩء (ﺗﻌﻭﻳﺫة)</text>
+<text id="136200">ﺗﻁﺑﻳﻖ ﻓﻲ اﻟﻣﻭﺿﻊ اﻟﺣﺎﻟﻲ</text>
+<text id="136201">ﺗﻐﻳﻳﺭ اﻻﺳﻡ</text>
+<text id="136202">ﻋﻼﻣﺔ</text>
+<text id="136203">ﺗﻐﻳﻳﺭ اﻟﻧﻅﺎم</text>
+<text id="136204">اﺳﺗﺑﺩال اﻟﻣﻭﺿﻊ اﻟﺣﺎﻟﻲ</text>
+<text id="136205">ﺗﺷﻐﻳﻝ/إﻳﻘﺎف ﺣﻔﻅ ﻋﺭض اﻟﺗﺎرﻳﺦ واﻟﻭﻗﺕ</text>
+<text id="136220">إدﺧﺎل اﺳﻡ اﻹﻋﺩاد اﻟﻣﺳﺑﻖ</text>
+<text id="138580">أﻛﺎدﻳﻣﻲ ﻣﺳﺎﻓﺭ ﻓﻲ اﻷراﺿﻲ
+اﻟﻭﺳﻁﻰ ﻳﻧﺗﻣﻲ إﻟﻰ ﻣﺩرﺳﺔ
+ﻫﻳﺭوداس وﻳﺳﻌﻰ ﻟﻠﻣﻌﺭﻓﺔ
+ﺧﻼل أﺳﻔﺎره.
+ﺻﻳﺏ ﺑﻣﺭض ﻳﺗﺳﺑﺏ ﻓﻲ اﻟﺗﻘﺩم
+ﻓﻲ اﻟﺳﻥ ﺑﺳﺭﻋﺔ
+ﻋﻠﻰ ﻧﺣﻭ ﻏﻳﺭ ﻁﺑﻳﻌﻲ.
+
+ﻳﺗﺳﻡ ﺑﻘﺩرات ﻏﺎﻣﺿﺔ ﻣﺩﻫﺷﺔ ﻟﻛﻥ
+ﻫﺫا ﻳﺄﺗﻲ ﻋﻠﻰ ﺣﺳﺎب ﺳﻣﺎت أﺧﺭى.
+ﻳﻣﻛﻥ أن ﻳﻛﺗﺳﺏ ﺧﺻﺎﺋﺹ ﻗﺗﺎﻟﻳﺔ
+راﺋﻌﺔ ﻣﻥ ﺧﻼل اﻟﻣﻼﺣﻅﺔ.
+
+اﻟﺳﻼح اﻟﻣﻔﺿﻝ: ﺳﻳﻭف اﻟﻁﻌﻥ</text>
+<text id="138581">%null%</text>
+<text id="138582">%null%</text>
+<text id="138583">%null%</text>
+<text id="138584">%null%</text>
+<text id="138585">%null%</text>
+<text id="138586">%null%</text>
+<text id="138587">%null%</text>
+<text id="138588">%null%</text>
+<text id="138589">%null%</text>
+<text id="138590">رﺋﻳﺳﺔ راﻫﺑﺎت ﻓﻭﺿﻬﺎ اﻟﺩﻳﺭ
+اﻟﺫي ﺗﻧﺗﻣﻲ إﻟﻳﻪ ﻟﻘﺗﻝ
+ﻟﻭرد اﻟﻅﻼم. ﻗﻭﺗﻬﺎ اﻟﻐﺭﻳﺑﺔ
+ﺗﺗﻌﺎرض ﻣﻊ ﺷﻛﻝ ﺑﻧﻳﺗﻬﺎ
+ﻣﺎ ﻳﺟﻌﻝ اﻵﺧﺭون ﻳﺗﺣﺎﺷﻭﻧﻬﺎ
+ﻟﻛﻧﻬﻡ ﻳﺳﺗﺩﻋﻭﻧﻬﺎ ﻓﻲ اﻟﻧﻬﺎﻳﺔ
+ﻟﻳﻛﻠﻔﻭﻫﺎ ﺑﻣﻬﻣﺔ دﻓﻥ اﻟﻣﻭﺗﻰ
+اﻟﻣﻘﻳﺗﺔ.
+
+ﺣﺎرﺳﺔ ﺑﻭاﺑﺔ اﻟﻌﺎﻟﻡ اﻵﺧﺭ
+اﻟﻣﺗﻭاﺿﻌﺔ ﻫﺫه ﺗﺗﺳﻡ ﺑﺎﻹﺧﻼص
+وﻗﻭة ﻣﺑﻬﺭة ﻣﺗﻭﻟﻳﺔ اﻟﻘﺿﺎء ﻋﻠﻰ
+اﻷﻋﺩاء ﺑﺑﺭاﻋﺔ ﺑﺎﻁﺷﺔ.
+
+اﻟﺳﻼح اﻟﻣﻔﺿﻝ: اﻟﻣﻁﺎرق</text>
+<text id="144790">ﺣﻣﻝ ﻋﻧﺎﺻﺭ أﻛﺛﺭ ورﻓﻊ ﻣﺳﺗﻭى اﻟﻌﻧﺎﺻﺭ ﻋﺑﺭ اﺳﺗﺧﺩاﻣﻬﺎ</text>
+<text id="144791">%null%</text>
+<text id="144792">%null%</text>
+<text id="144793">%null%</text>
+<text id="144794">%null%</text>
+<text id="144795">ﻳﻣﻛﻥ ﺗﻧﻔﻳﺫ اﻷﺳﻠﻭب اﻷﺳﻣﻰ ﻋﻧﺩﻣﺎ ﻳﻧﺫ اﻷﻋﺩاء أو اﻟﺣﻠﻔﺎء ﻫﺟﻣﺎت ﻣﺣﺩدة</text>
+<text id="144890">&lt;?keyicon@127##10?&gt;: ﺑﺩء اﻟﺗﺣﻠﻳﻝ</text>
+<text id="144891">&lt;?keyicon@120##10?&gt;: ﺗﻔﻌﻳﻝ اﻻﺳﺗﺧﺩام ﻋﻠﻰ اﻟﻌﺩو
+&lt;?keyicon@118##10?&gt;: ﺗﻔﻌﻳﻝ اﻻﺳﺗﺧﺩام ﻋﻠﻰ ﻧﻔﺳﻙ
+&lt;?keyicon@127##10?&gt;: إﻟﻐﺎء</text>
+<text id="144892">%null%</text>
+<text id="144893">%null%</text>
+<text id="144894">%null%</text>
+<text id="144895">&lt;?keyicon@127##10?&gt;: ﺗﻔﻌﻳﻝ
+اﻟﺿﻐﻁ ﺑﺎﺳﺗﻣﺭار ﻋﻠﻰ &lt;?keyicon@127##10?&gt; ﻣﻊ اﻣﺗﻼء
+ﻣﻘﻳﺎس اﻷﺳﻠﻭب إﻟﻰ ﺣﺩه اﻷﻗﺻﻰ: ﻫﺟﻭم ﻣُﺣﺳّﻥ
+*أو اﻟﺿﻐﻁ ﻋﻠﻰ &lt;?keyicon@118##10?&gt; ﻓﻲ أﺛﻧﺎء اﻟﺿﻐﻁ ﺑﺎﺳﺗﻣﺭار ﻋﻠﻰ &lt;?keyicon@127##10?&gt;</text>
+<text id="144896">&lt;?keyicon@127##10?&gt;: إﻟﻐﺎء ﻣﻬﺎرة اﻟﺷﺧﺻﻳﺔ</text>
+<text id="144990">&lt;?keyicon@126##10?&gt;: ﺗﻔﻌﻳﻝ</text>
+<text id="144991">%null%</text>
+<text id="144992">%null%</text>
+<text id="144993">%null%</text>
+<text id="144994">%null%</text>
+<text id="144995">&lt;?keyicon@126##10?&gt;: ﺗﻔﻌﻳﻝ</text>
+<text id="146712">ﺗﻐﻳﻳﺭ ﻣﻬﺎرة ﻟـ &lt;?text1?&gt; </text>
+<text id="146713">اﺳﺗﺭﺟﺎع ﻣﻬﺎرة ﻟـ &lt;?text1?&gt;</text>
+<text id="148010">ﻣﻛﺎﻓﺄة ﺳﺭ اﻟﻣﻌﺑﺩ</text>
+<text id="148011">%null%</text>
+<text id="148012">%null%</text>
+<text id="148013">%null%</text>
+<text id="148014">%null%</text>
+<text id="148015">%null%</text>
+<text id="148016">%null%</text>
+<text id="148017">%null%</text>
+<text id="148018">%null%</text>
+<text id="148019">%null%</text>
+<text id="148020">ﻣﻛﺎﻓﺄة اﻟﻔﺎﺋﺯ 1</text>
+<text id="238000">ﺗﻐﻳﻳﺭ ﻣﻬﺎرة (ﻣﺭة واﺣﺩة ﻓﻘﻁ)</text>
+<text id="238001">اﺳﺗﺭﺟﺎع ﻣﻬﺎرة (ﻣﺭة واﺣﺩة ﻓﻘﻁ)</text>
+<text id="238020">ﺗﻡ اﻟﺗﻐﻳﻳﺭ</text>
+<text id="238021">ﻟﻡ ﻳﺗﻐﻳﺭ</text>
+<text id="288058">اﻟﺩارس</text>
+<text id="288059">ﺣﺎﻓﺭة اﻟﻘﺑﻭر</text>
+<text id="335080">ﺗﺗﻁﻠﺏ ﻁﺎوﻟﺔ اﻟﺣﺩادة ﺣﺭارة ﻣﺻﻬﺭ</text>
+<text id="335081">ﺗﻌر اﻟﻔﺣﺹ اﻵن</text>
+<text id="335082">اﻟﻣﺫﺑﺢ ﻣُﻐﻠﻖ</text>
+<text id="336012">اﺧﺗﻼل اﻟﺗﻭازن</text>
+<text id="336013">اﻟﺗﻐﻠﺏ ﻋﻠﻰ اﻟﻛﻭارث</text>
+<text id="337420">اﻟﻧﺎر ﻣﺗﺄﺟﺟﺔ ﻓﻲ اﻟﻣﻌﺑﺩ ﺗﻧﺫر ﺑﺷﺭ</text>
+<text id="337421">اﻟﻣﻌﺑﺩ ﻳﻔﻳﺽ ﺑﺎﻟﺳﺣﺭ</text>
+<text id="337422">اﻟﺑﺭق ﻳﻬﺩر ﻓﻲ اﻟﻣﻌﺑﺩ</text>
+<text id="337423">اﻟﻘﺩﺳﻳﺔ ﺗﺑﺎرك اﻟﻣﻌﺑﺩ</text>
+<text id="337424">اﻟﻣﻌﺑﺩ ﻳﻌﺞ ﺑﺎﻟﺳﻡ</text>
+<text id="337425">ﻋﻔﻥ ﻗﺭﻣﺯي ﺳﻣﺎوي ﻳﻧﻬﺵ اﻟﻣﻌﺑﺩ</text>
+<text id="337426">اﻟﻣﻌﺑﺩ ﻣﺗﻌﻁﺵ ﻟﻠﻧﺯﻳﻑ</text>
+<text id="337427">اﻟﻣﻌﺑﺩ ﻣﻔﻌﻡ ﺑﻠﺳﻌﺎت ﻗﺿﻣﺔ اﻟﺻﻘﻳﻊ</text>
+<text id="337428">اﻟﻣﻌﺑﺩ ﻳﻌﺎﻟﺞ ﺑﻬﺩوء أي ﻛﺎﺋﻥ ﺣﻲ</text>
+<text id="337429">اﻟﻣﻌﺑﺩ ﻳﻘﺗﻝ أي ﻛﺎﺋﻥ ﺣﻲ ﺗﺩرﻳﺟﻳًﺎ</text>
+<text id="337520">رﻓﻊ ﻣﺳﺗﻭى ﻛﻔﺎءة اﺳﺗﺧﺩام اﻟﻌﻧﺻﺭ [2]</text>
+<text id="337521">رﻓﻊ ﻣﺳﺗﻭى ﻛﻔﺎءة اﺳﺗﺧﺩام اﻟﻌﻧﺻﺭ [3]</text>
+<text id="337880">ﻅﻬﺭ ﻫﺩف ﺟﺩﻳﺩ</text>
+<text id="337881">ﻅﻬﺭ ﻫﺩف ﺟﺩﻳﺩ</text>
+<text id="337882">%null%</text>
+<text id="337883">%null%</text>
+<text id="337884">%null%</text>
+<text id="337885">ﺿﻳﻑ ﻣﺩﺧﻝ إﻟﻰ اﻟﺩﻟﻳﻝ</text>
+<text id="337886">ﺿﻳﻑ ﻣﺩﺧﻝ إﻟﻰ ﻛﺗﺎب اﻹرﺷﺎدات</text>
+<text id="337887">ﺿﻳﻑ ﻣﺩﺧﻝ إﻟﻰ اﻟﺩﻟﻳﻝ و ﻛﺗﺎب اﻹرﺷﺎدات</text>
+<text id="337888">%null%</text>
+<text id="337889">%null%</text>
+<text id="337890">ﻳﺭت ﻣﻬﺎرة</text>
+<text id="337891">اﺳﺗُﺭﺟﻌﺕ ﻣﻬﺎرة</text>
+<text id="337892">ﻻ ﻳﻣﻛﻥ ﺗﻐﻳﻳﺭ ﻣﻬﺎرة اﻟﺳﻼح ﻫﺫه</text>
+<text id="337893">ﻻ ﻳﻣﻛﻥ اﺳﺗﺭﺟﺎع ﻣﻬﺎرة اﻟﺳﻼح ﻫﺫه</text>
+<text id="337954">اﻷرض ﺗﺗﺣﺭك: اﻟﺣﻔﺭة اﻟﻌﻅﻳﻣﺔ</text>
+<text id="337955">%null%</text>
+<text id="337956">%null%</text>
+<text id="337957">%null%</text>
+<text id="337958">%null%</text>
+<text id="337959">اﺳﺗﻘﺭت اﻷرض اﻟﻣﺗﺣﺭﻛﺔ</text>
+<text id="337960">%null%</text>
+<text id="337961">%null%</text>
+<text id="337962">%null%</text>
+<text id="337963">%null%</text>
+<text id="337964">%null%</text>
+<text id="337965">%null%</text>
+<text id="337966">%null%</text>
+<text id="337967">%null%</text>
+<text id="337968">ﻫﺩف ﺷﺧﺻﻲ ﻗﻳﺩ اﻟﺗﻘﺩم</text>
+<text id="337969">ﻫﺩف ﺷﺧﺻﻲ ﻗﻳﺩ اﻟﺗﻘﺩم</text>
+<text id="337987">ﻳﻣﻛﻥ ﻓﺣﺹ ﻣﻭﻗﻊ اﻟﻬﺩف اﻵن</text>
+<text id="337988">ﻳﻣﻛﻥ ﻓﺣﺹ ﻣﻭﻗﻊ اﻟﻬﺩف اﻵن</text>
+<text id="337989">ﻳﻣﻛﻥ ﻓﺣﺹ ﻣﻭﻗﻊ اﻟﻬﺩف اﻵن</text>
+<text id="337990">%null%</text>
+<text id="337991">%null%</text>
+<text id="337992">%null%</text>
+<text id="337993">%null%</text>
+<text id="337994">%null%</text>
+<text id="337995">ﻘﺩت ﻗﻭة ﻣﻥ ﺻﻧﻳﻊ اﻟﻐﺎﺑﺔ اﻟﻣﺗﻌﻔﻧﺔ</text>
+<text id="338490">ﺗﺢ ﻣﺫﺑﺢ اﻟﻧﺳﺦ</text>
+<text id="338491">%null%</text>
+<text id="338492">%null%</text>
+<text id="338493">%null%</text>
+<text id="338494">%null%</text>
+<text id="338495">%null%</text>
+<text id="338496">%null%</text>
+<text id="338497">%null%</text>
+<text id="338498">%null%</text>
+<text id="338499">%null%</text>
+<text id="338500">ﻅﻬﺭت وﺣﻭش ﺗﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338501">%null%</text>
+<text id="338502">%null%</text>
+<text id="338503">%null%</text>
+<text id="338504">%null%</text>
+<text id="338505">%null%</text>
+<text id="338506">%null%</text>
+<text id="338507">%null%</text>
+<text id="338508">%null%</text>
+<text id="338509">%null%</text>
+<text id="338510">ﺳﻘﻁﺕ ﻛﻝ اﻟﻭﺣﻭش اﻟﺗﻲ ﺗﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338511">ﺳﻘﻁ وﺣﺵ ﻳﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338512">ﺳﻘﻁ وﺣﺵ ﻳﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338513">%null%</text>
+<text id="338514">%null%</text>
+<text id="338515">%null%</text>
+<text id="338516">%null%</text>
+<text id="338517">%null%</text>
+<text id="338518">%null%</text>
+<text id="338519">%null%</text>
+<text id="338520">ﻫُﺯﻣﺕ وﺣﻭش ﺗﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338521">%null%</text>
+<text id="338522">%null%</text>
+<text id="338523">%null%</text>
+<text id="338524">%null%</text>
+<text id="338525">ﺗﺯداد ﻗﻭة وﺣﻭش ﺗﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338526">ﺣُﺩدت وﺣﻭش ﺗﺳﺗﺩﻋﻲ ﻧﺎرًا</text>
+<text id="338527">%null%</text>
+<text id="338528">%null%</text>
+<text id="338529">%null%</text>
+<text id="338530">ﺗﺣﺕ ﻁﺎوﻟﺔ ﺣﺩادة ﺗﻐﻳﺭ اﻟﻣﻬﺎرات</text>
+<text id="338600">ﺿﺑﺎب ﺑﺎرد ﻣﺣﺗﺷﺩ ﻳﻧﺫر ﺑﺎﻟﻣﻁﺭ...</text>
+<text id="338601">%null%</text>
+<text id="338602">%null%</text>
+<text id="338603">%null%</text>
+<text id="338604">%null%</text>
+<text id="338605">%null%</text>
+<text id="338606">%null%</text>
+<text id="338607">%null%</text>
+<text id="338608">%null%</text>
+<text id="338609">%null%</text>
+<text id="338610">اﻟﺿﺑﺎب اﻟﺑﺎرد ارﺗﻔﻊ</text>
+<text id="338611">%null%</text>
+<text id="338612">%null%</text>
+<text id="338613">%null%</text>
+<text id="338614">%null%</text>
+<text id="338615">%null%</text>
+<text id="338616">%null%</text>
+<text id="338617">%null%</text>
+<text id="338618">%null%</text>
+<text id="338619">%null%</text>
+<text id="338620">اﻟﺿﺑﺎب اﻟﺑﺎرد ارﺗﻔﻊ</text>
+<text id="338700">اﻟﺿﺎﺑﻁﺎت ﺳﻳﺣﻛﻣﻥ</text>
+<text id="338701">%null%</text>
+<text id="338702">%null%</text>
+<text id="338703">%null%</text>
+<text id="338704">%null%</text>
+<text id="338705">%null%</text>
+<text id="338706">%null%</text>
+<text id="338707">%null%</text>
+<text id="338708">%null%</text>
+<text id="338709">%null%</text>
+<text id="338710">ﻓﻘﺩان ﺷﺣﻧﺎت ﻣﻥ ﻗﻧﻳﻧﺔ ﻣﻘﺩﺳﺔ</text>
+<text id="338711">%null%</text>
+<text id="338712">%null%</text>
+<text id="338713">%null%</text>
+<text id="338714">%null%</text>
+<text id="338715">%null%</text>
+<text id="338716">%null%</text>
+<text id="338717">%null%</text>
+<text id="338718">%null%</text>
+<text id="338719">%null%</text>
+<text id="338720">اﺳﺗﻌﺎدة ﺑﻌﺽ ﺷﺣﻧﺎت ﻗﻧﻳﻧﺔ ﻣﻘﺩﺳﺔ</text>
+<text id="338721">%null%</text>
+<text id="338722">%null%</text>
+<text id="338723">%null%</text>
+<text id="338724">%null%</text>
+<text id="338725">%null%</text>
+<text id="338726">%null%</text>
+<text id="338727">%null%</text>
+<text id="338728">%null%</text>
+<text id="338729">%null%</text>
+<text id="338730">اﺳﺗﻌﺎدة ﻛﻝ ﺷﺣﻧﺎت ﻗﻧﻳﻧﺔ ﻣﻘﺩﺳﺔ</text>
+<text id="338731">%null%</text>
+<text id="338732">%null%</text>
+<text id="338733">%null%</text>
+<text id="338734">%null%</text>
+<text id="338735">%null%</text>
+<text id="338736">%null%</text>
+<text id="338737">%null%</text>
+<text id="338738">%null%</text>
+<text id="338739">%null%</text>
+<text id="338740">اﻧﺳﺣﺑﺕ ﺿﺎﺑﻁﺔ</text>
+<text id="338741">%null%</text>
+<text id="338742">%null%</text>
+<text id="338743">%null%</text>
+<text id="338744">%null%</text>
+<text id="338745">%null%</text>
+<text id="338746">%null%</text>
+<text id="338747">%null%</text>
+<text id="338748">%null%</text>
+<text id="338749">%null%</text>
+<text id="338750">اﻧﺳﺣﺑﺕ ﻛﻝ اﻟﺿﺎﺑﻁﺎت</text>
+<text id="338800">اﻟﺑﻠﻭرة اﻟﻌﻅﻳﻣﺔ ﺗﺗﺷﻘﻖ</text>
+<text id="338801">اﻟﺑﻠﻭرة اﻟﻌﻅﻳﻣﺔ ﺗﺗﻬﺷﻡ</text>
+<text id="338802">ﺣُﺩدت ﻣﻭاﻗﻊ ﺑﻠﻭرات اﻟﺭﻧﻳﻥ</text>
+<text id="338803">%null%</text>
+<text id="338804">%null%</text>
+<text id="338805">ﻏﺯا ﺑﺩﻳﻝ!</text>
+<text id="338806">ﺳﻘﻁ ﺑﺩﻳﻝ</text>
+<text id="338807">%null%</text>
+<text id="338808">%null%</text>
+<text id="338809">%null%</text>
+<text id="338810">ﻛُﺳﺭ اﻟﺧﺗﻡ</text>
+<text id="338811">%null%</text>
+<text id="338812">%null%</text>
+<text id="338813">%null%</text>
+<text id="338814">%null%</text>
+<text id="338815">%null%</text>
+<text id="338816">%null%</text>
+<text id="338817">%null%</text>
+<text id="338818">%null%</text>
+<text id="338819">%null%</text>
+<text id="338820">اﺿﻁﺭاب ﺑﺎﻟﻣﻧﺎﻁﻖ اﻟﻌﻠﻳﺎ ﻣﻥ اﻟﺣﺻﻥ</text>
+<text id="338821">ﺳﻘﻁ ﺑﺩﻳﻝ</text>
+<text id="411008">اﻟﺗﺣﻠﻳﻝ</text>
+<text id="411009">ﺳﺑﺎت</text>
+<text id="411010">%null%</text>
+<text id="411011">%null%</text>
+<text id="411012">%null%</text>
+<text id="411013">%null%</text>
+<text id="411014">%null%</text>
+<text id="411015">%null%</text>
+<text id="411016">%null%</text>
+<text id="411017">%null%</text>
+<text id="411018">اﻟﺗﺣﻠﻳﻝ</text>
+<text id="411019">ﺳُﺑﺎت</text>
+<text id="412008">رؤﻳﺔ اﻟﻬﺩف ﺑﻧﻅﺎرة أﺣﺎدﻳﺔ وﺗﺩوﻳﻥ اﻟﻧﺗﺎﺋﺞ
+اﻟﺗﻲ ﺗﻅﻝ ﻛﺭﻣﻭز روﺣﻳﺔ ﻟﻬﺎ ﺗﺄﺛﻳﺭات ﻣﺧﺗﻠﻔﺔ.</text>
+<text id="412009">إراﻗﺔ اﻟﺩم ﺗﺣﻔﺯ ﻗﻭة اﻟﺗﻌﻭﻳﺫة اﻟﺑﻐﻳﺿﺔ</text>
+<text id="412108">ﻣﻭاﺻﻠﺔ اﻟﻣﻼﺣﻅﺔ ﻟﺗﻁﻭﻳﺭ اﻟﺗﺣﻠﻳﻝ. ﻳﻣﻛﻥ ﺗﺣﺳﻳﻥ ﻣﻌﺩل
+اﻟﺗﻘﺩم ﻋﺑﺭ اﺳﺗﺧﺩام اﻟﺗﺣﻠﻳﻝ ﻋﻠﻰ أﻧﻭاع أﻋﺩاء أﻛﺛﺭ
+واﻛﺗﺷﺎف ﻣﻼﺣﻅﺎت ﺧﺎﺻﺔ وﺿﻡّ اﻟﺣﻠﻔﺎء إﻟﻰ اﻟﺗﺣﻠﻳﻝ.</text>
+<text id="412109">ﺗﺯداد ﺧﻔﺔ اﻟﺣﺭﻛﺔ وﺗﻌﺯز اﻟﻬﺟﻣﺎت اﻟﻣﺗﻛﺭرة ﻗﻭة
+اﻟﻬﺟﻭم. اﺳﺗﻧﺯاف ﻣﻘﻳﺎس اﻷﺳﻠﻭب اﻷﺳﻣﻰ ﻳﻔﻌّﻝ
+ﺗﻌﻭﻳﺫة ﺑﻐﻳﺿﺔ إﺿﺎﻓﻳﺔ.</text>
+<text id="413008">اﻟﻘﺭﺑﺎن</text>
+<text id="413009">اﻟﺗﻌﻭﻳﺫة اﻟﺑﻐﻳﺿﺔ</text>
+<text id="413010">%null%</text>
+<text id="413011">%null%</text>
+<text id="413012">%null%</text>
+<text id="413013">%null%</text>
+<text id="413014">%null%</text>
+<text id="413015">%null%</text>
+<text id="413016">%null%</text>
+<text id="413017">%null%</text>
+<text id="413018">اﻟﻘﺭﺑﺎن</text>
+<text id="413019">اﻟﺗﻌﻭﻳﺫة اﻟﺑﻐﻳﺿﺔ</text>
+<text id="414008">ﻧﺷﺭ ﺻﻔﺣﺎت ﻣﻥ ﻣﺟﻠﺩ اﻟﻣﺣﺭﻣﺎت ﻟﺻﻑ
+اﻷﻋﺩاء وﺗﺩﻣﻳﺭﻫﻡ ﻓﻲ آن واﺣﺩ.</text>
+<text id="414009">ﺳﺣﺏ ﻋﻅﻣﺔ ﻏﺭﻳﺑﺔ ﻣﻥ ﺟﺳﻡ واﻹﺳﺭاع
+ﻧﺣﻭ ﻫﺩف ﺛﻡ ﺗﺳﺩﻳﺩ ﺿﺭﺑﺔ.</text>
+<text id="414108">اﻟﺿﺭر اﻟﻣﻠﺣﻖ ﺑﺎﻷﻋﺩاء اﻟﻣﺻﻔﻭﻓﻳﻥ ﻳﺅﺛﺭ ﻓﻲ أﻋﺩاء
+آﺧﺭﻳﻥ. ﻳﺳﺗﻌﻳﺩ أﻳﺿًﺎ ﻧﻘﺎط ﺻﺣﺔ ﺣﻠﻔﺎء ﻣﺻﻔﻭﻓﻳﻥ.
+ﺗﻠﺣﻖ ﻫﺟﻣﺎت ﻋﺩو ﻣﺻﻔﻭف اﻟﺿﺭر ﺑﺎﻟﻣﻬﺎﺟﻡ أﻳﺿًﺎ.</text>
+<text id="414109">اﻟﻬﺟﻭم ﺑﺳﺭﻋﺔ ﻣﻊ إﺗﺎﺣﺔ ﻓﺭﺻﺔ ﻟﺣﺭﻛﺔ ﻫﻭاﺋﻳﺔ</text>
+<text id="415008">ﻗﻭة اﻟﺣﻣﻝ</text>
+<text id="415009">اﻧﺩﻣﺎج</text>
+<text id="415010">%null%</text>
+<text id="415011">%null%</text>
+<text id="415012">%null%</text>
+<text id="415013">%null%</text>
+<text id="415014">%null%</text>
+<text id="415015">%null%</text>
+<text id="415016">%null%</text>
+<text id="415017">%null%</text>
+<text id="415018">ﻗﻭة اﻟﺣﻣﻝ</text>
+<text id="415019">اﻧﺩﻣﺎج</text>
+<text id="416008">ﺣﻣﻝ ﻋﻧﺎﺻﺭ أﻛﺛﺭ ورﻓﻊ ﻣﺳﺗﻭى اﻟﻌﻧﺎﺻﺭ ﻋﺑﺭ اﺳﺗﺧﺩاﻣﻬﺎ</text>
+<text id="416009">أي أﺳﻠﻭب ﻳﻧﻔﺫه ﺣﻠﻳﻑ ﻳﻔﻌّﻝ ﺗﻧﺷﻳﻁ أﺳﺎﻟﻳﺏ
+إﺿﺎﻓﻳﺔ ﺑﻐﺽ اﻟﻧﻅﺭ ﻋﻥ اﻟﻣﻘﻳﺎس.</text>
+<text id="416010">%null%</text>
+<text id="416011">%null%</text>
+<text id="416012">%null%</text>
+<text id="416013">%null%</text>
+<text id="416014">%null%</text>
+<text id="416015">%null%</text>
+<text id="416016">%null%</text>
+<text id="416017">%null%</text>
+<text id="416018">ﻳُﺭﻓﻊ ﻣﺳﺗﻭى ﻛﻝ ﻓﺋﺔ ﻋﻧﺻﺭ ﺑﺷﻛﻝ ﻣﻧﻔﺻﻝ.
+اﻟﻣﺳﺗﻭى 2: ﺗﻌﺯﻳﺯ اﻟﺗﺄﺛﻳﺭ.
+اﻟﻣﺳﺗﻭى 3: إﺿﺎﻓﺔ ﺗﺄﺛﻳﺭ إﺿﺎﻓﻲ.</text>
+<text id="416019">اﻣﺗﺻﺎص ﻁﺎﻗﺔ ﻫﺟﻣﺎت ﻣﺷﺑﻌﺔ ﺑﺎﻟﻅﻼم ﻧﻔﺫﻫﺎ
+أﻋﺩاء ﻣﻌﻳﻧﻭن ﻳﺳﻣﺢ ﺑﺗﻧﺷﻳﻁ أﺳﻠﻭب.</text>
+</entries>
+</fmg>

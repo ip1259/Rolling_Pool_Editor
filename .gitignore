@@ -1,0 +1,15 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.vscode/launch.json
+src/game_data_cvrt/data/param/prompt.txt
+src/game_data_cvrt/data/param/needed.txt
+src/GUI問題.png
+data/*
