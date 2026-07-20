@@ -9,12 +9,14 @@ import customtkinter as ctk
 
 class FilterController:
     def __init__(self, parent_frame: ctk.CTkBaseClass, game_param_module: Any,
-                 game_text_module: Any, on_change: Callable[[], None]) -> None:
+                 game_text_module: Any, on_change: Callable[[], None],
+                 initial_filters: Set[str] | None = None) -> None:
         self._parent_frame = parent_frame
         self._game_param = game_param_module
         self._game_text = game_text_module
         self._on_change = on_change
         self._block_filter_event = False
+        self._initial_filters = set(initial_filters or ())
 
         # 新增：標記是否為首次建立，用來判定是否套用預設摺疊狀態
         self._is_first_build = True
@@ -37,7 +39,8 @@ class FilterController:
 
     def build_tree(self) -> None:
         """Rebuild the tree while preserving selected filters and collapsed groups."""
-        selected_filters = self.get_active_filter_ids()
+        selected_filters = (self.get_active_filter_ids() if self.filter_vars
+                            else self._initial_filters)
         for widget in self._parent_frame.winfo_children():
             widget.destroy()
 

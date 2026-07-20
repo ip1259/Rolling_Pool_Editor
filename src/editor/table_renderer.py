@@ -85,5 +85,5 @@ def draw_row(canvas: tk.Canvas, record, row_index: int, effect_name: str,
     zero_bg = theme.save_btn_disabled_bg if is_locked else "#C0392B"
     canvas.create_rectangle(zero_left + 2, y + 10, right - 4, y + height - 10,
                             fill=zero_bg, outline="", tags="row")
-    canvas.create_text((zero_left + right) // 2, y + height // 2, text="0",
+    canvas.create_text((zero_left + right) // 2, y + height // 2, text="1",
                        fill=theme.text_color, font=("Helvetica", 11, "bold"), tags="row")

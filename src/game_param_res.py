@@ -307,7 +307,11 @@ class GameParamManager:
         return updated_count
 
     def apply_table_changes_to_others(self, source_table_id: str) -> int:
-        """Apply changed source weights to matching filters in every other table."""
+        """Apply changed source weights to matching filters in every other table.
+
+        Increased weights still target the highest Effect ID. Decreased weights
+        target every matching Effect ID less than or equal to the source ID.
+        """
         TARGET_TABLES = EditableAttachEffectTableRecord.EDITABLE_TABLES
         source_table = self.EditableAttachEffectTable.get(source_table_id, {})
         changes = [record for record in source_table.values()
@@ -333,20 +337,19 @@ class GameParamManager:
                     continue
                 source_effect_id = int(source.attachEffectId)
                 if source.final_chance_weight > source.origin_chance_weight:
-                    target = max(candidates, key=lambda item: int(
-                        item.attachEffectId))
+                    targets = [max(candidates, key=lambda item: int(
+                        item.attachEffectId))]
                 else:
-                    lower_or_equal = [item for item in candidates if int(
+                    targets = [item for item in candidates if int(
                         item.attachEffectId) <= source_effect_id]
-                    if not lower_or_equal:
+                    if not targets:
                         continue
-                    target = max(lower_or_equal, key=lambda item: int(
-                        item.attachEffectId))
-                target.update_weight(source.final_chance_weight)
-                touched_tables.add(target_table_id)
-                print(
-                    f"touched table:{target_table_id}, Effect ID:{target.ID}")
-                applied_count += 1
+                for target in targets:
+                    target.update_weight(source.final_chance_weight)
+                    touched_tables.add(target_table_id)
+                    print(
+                        f"touched table:{target_table_id}, Effect ID:{target.attachEffectId}")
+                    applied_count += 1
         for table_id in touched_tables:
             self.update_chance_rate_map(table_id)
         return applied_count

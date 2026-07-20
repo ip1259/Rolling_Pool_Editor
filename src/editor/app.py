@@ -36,6 +36,7 @@ from game_trext_res import GameText
 from .theme_cache import ThemeCache
 from .localization_cache import LocalizationCache
 from .filter_controller import FilterController
+from .config import Config
 from .warning_controller import WarningController
 from .virtual_table import VirtualTable
 from . import table_renderer as tr
@@ -45,8 +46,20 @@ class ChanceWeightEditorApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.current_gui_lang = "zhotw"
-        ctk.set_appearance_mode("Dark")
+        self.config = Config()
+        available_languages = {
+            code for code, _name in GameText.get_available_languages_for_gui()
+        }
+        configured_language = self.config.values.get("language", "engus")
+        self.current_gui_lang = (configured_language
+                                 if isinstance(configured_language, str)
+                                 and configured_language in available_languages else "engus")
+        configured_theme = self.config.values.get("theme", "Dark")
+        self.current_theme = configured_theme if configured_theme in ("Dark", "Light") else "Dark"
+        configured_filters = self.config.values.get("filters", [])
+        if not isinstance(configured_filters, list):
+            configured_filters = []
+        ctk.set_appearance_mode(self.current_theme)
         ctk.set_default_color_theme("blue")
 
         GameText.change_language(self.current_gui_lang)
@@ -77,7 +90,8 @@ class ChanceWeightEditorApp(ctk.CTk):
 
         # Filter controller 需要在 filter_scroll 建立之後才能初始化
         self.filter_controller = FilterController(
-            self.filter_scroll, GameParam, GameText, on_change=self.refresh_data_grid)
+            self.filter_scroll, GameParam, GameText, on_change=self._on_filters_changed,
+            initial_filters=set(configured_filters))
         self.filter_controller.build_tree()
 
         self.warning_controller = WarningController(self.lbl_warning, self._get_text)
@@ -149,6 +163,7 @@ class ChanceWeightEditorApp(ctk.CTk):
             self.setting_box, values=["Dark", "Light"], command=self._on_theme_changed)
         self.combo_theme.grid(
             row=1, column=1, sticky="ew", padx=(10, 0), pady=5)
+        self.combo_theme.set(self.current_theme)
 
         self.lbl_table = ctk.CTkLabel(self.setting_box, text=self._get_text(
             "table_select"), anchor="w", font=("Helvetica", 12, "bold"))
@@ -270,6 +285,8 @@ class ChanceWeightEditorApp(ctk.CTk):
     def _on_theme_changed(self, mode: str):
         """主題切換：重新計算 ThemeCache，並更新 Header 與目前可視列的顏色。"""
         ctk.set_appearance_mode(mode)
+        self.current_theme = mode
+        self.config.update(theme=mode)
         self.theme.refresh()
         self._refresh_header()
         self.virtual_table.set_theme(self.theme)
@@ -286,6 +303,7 @@ class ChanceWeightEditorApp(ctk.CTk):
             return
 
         self.current_gui_lang = code
+        self.config.update(language=code)
         self.loc.set_language(code)
 
         GameText.change_language(code)
@@ -326,6 +344,10 @@ class ChanceWeightEditorApp(ctk.CTk):
 
     def get_active_filter_ids(self) -> Set[str]:
         return self.filter_controller.get_active_filter_ids()
+
+    def _on_filters_changed(self):
+        self.config.update(filters=sorted(self.get_active_filter_ids(), key=int))
+        self.refresh_data_grid()
 
     def _on_clear_filters_clicked(self):
         self.filter_controller.clear_all_filters()
@@ -434,7 +456,7 @@ class ChanceWeightEditorApp(ctk.CTk):
             return
         record = self._current_display_records[idx]
         try:
-            record.update_weight(0)
+            record.update_weight(1)
             GameParam.update_chance_rate_map(record.ID)
             self.refresh_data_grid()
         except PermissionError as error:
