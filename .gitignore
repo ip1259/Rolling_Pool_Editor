@@ -13,3 +13,6 @@ src/game_data_cvrt/data/param/prompt.txt
 src/game_data_cvrt/data/param/needed.txt
 src/GUI問題.png
 data/*
+src/extract/AttachEffectTableParam_Duchess.csv
+src/extract/AttachEffectTableParam_ironeye_bow.csv
+src/extract/AttachEffectTableParam.csv
