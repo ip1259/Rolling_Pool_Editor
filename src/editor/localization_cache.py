@@ -103,6 +103,56 @@ GUI_LOCALIZATION = {
 }
 
 
+GUI_LOCALIZATION["zhotw"].update({
+    "btn_import": "從 CSV 匯入",
+    "btn_apply": "套用到其他表格",
+    "file_csv": "CSV 檔案",
+    "file_all": "所有檔案",
+    "import_ok": "已匯入 {count} 個項目。",
+    "apply_confirm": "要將目前表格已修改的權重套用到所有其他可編輯表格嗎？",
+    "apply_ok": "已套用 {count} 個項目。",
+    "btn_set_unmodified_one": "未修改項設為 1",
+    "set_unmodified_one_confirm": "要將目前表格（ID: {table_id}）中未修改的項目設為 1 嗎？",
+    "set_unmodified_one_ok": "已將 {count} 個未修改項設為 1。",
+    "btn_clear_filters": "取消所有篩選",
+    "btn_increase_filtered": "篩選項權重 +100",
+    "increase_filtered_confirm": "要將目前篩選的 {count} 個可修改項目權重各加 100 嗎？",
+    "increase_filtered_ok": "已將 {count} 個篩選項目權重各加 100。",
+})
+GUI_LOCALIZATION["zhocn"].update({
+    "btn_import": "从 CSV 导入",
+    "btn_apply": "应用到其他表格",
+    "file_csv": "CSV 文件",
+    "file_all": "所有文件",
+    "import_ok": "已导入 {count} 个项目。",
+    "apply_confirm": "要将当前表格已修改的权重应用到所有其他可编辑表格吗？",
+    "apply_ok": "已应用 {count} 个项目。",
+    "btn_set_unmodified_one": "将未修改项设为 1",
+    "set_unmodified_one_confirm": "要将当前表格（ID: {table_id}）中未修改的项目设为 1 吗？",
+    "set_unmodified_one_ok": "已将 {count} 个未修改项设为 1。",
+    "btn_clear_filters": "取消所有筛选",
+    "btn_increase_filtered": "筛选项权重 +100",
+    "increase_filtered_confirm": "要将当前筛选的 {count} 个可修改项目权重各加 100 吗？",
+    "increase_filtered_ok": "已将 {count} 个筛选项目权重各加 100。",
+})
+GUI_LOCALIZATION["engus"].update({
+    "btn_import": "Import CSV",
+    "btn_apply": "Apply to Other Tables",
+    "file_csv": "CSV Files",
+    "file_all": "All Files",
+    "import_ok": "Imported {count} records.",
+    "apply_confirm": "Apply this table's changed weights to all other editable tables?",
+    "apply_ok": "Applied {count} records.",
+    "btn_set_unmodified_one": "Set Unmodified to 1",
+    "set_unmodified_one_confirm": "Set unmodified records in current table (ID: {table_id}) to 1?",
+    "set_unmodified_one_ok": "Set {count} unmodified records to 1.",
+    "btn_clear_filters": "Clear All Filters",
+    "btn_increase_filtered": "Add 100 to Filtered",
+    "increase_filtered_confirm": "Add 100 to each of the {count} editable filtered records?",
+    "increase_filtered_ok": "Added 100 to {count} filtered records.",
+})
+
+
 class LocalizationCache:
     """管理 GUI 靜態文字，以及 GameText 查詢結果的快取。"""
 

@@ -70,6 +70,8 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.minsize(1280, 750)
 
         self._current_display_records: List[EditableAttachEffectTableRecord] = []
+        self._sort_column = None
+        self._sort_reverse = False
 
         self._setup_layout()
 
@@ -156,10 +158,16 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.combo_table.grid(row=2, column=1, sticky="ew",
                               padx=(10, 0), pady=(15, 5))
 
-        self.lbl_filter_title = ctk.CTkLabel(self.left_panel, text=self._get_text(
+        self.filter_header = ctk.CTkFrame(self.left_panel, fg_color="transparent")
+        self.filter_header.grid(row=3, column=0, sticky="ew", padx=15, pady=(20, 5))
+        self.filter_header.grid_columnconfigure(0, weight=1)
+        self.lbl_filter_title = ctk.CTkLabel(self.filter_header, text=self._get_text(
             "filter_panel"), font=("Helvetica", 14, "bold"), anchor="w")
-        self.lbl_filter_title.grid(
-            row=3, column=0, sticky="ew", padx=15, pady=(20, 5))
+        self.lbl_filter_title.grid(row=0, column=0, sticky="w")
+        self.btn_clear_filters = ctk.CTkButton(
+            self.filter_header, text=self._get_text("btn_clear_filters"), width=100, height=26,
+            command=self._on_clear_filters_clicked)
+        self.btn_clear_filters.grid(row=0, column=1, sticky="e")
 
         self.filter_scroll = ctk.CTkScrollableFrame(
             self.left_panel, label_text="")
@@ -188,6 +196,25 @@ class ChanceWeightEditorApp(ctk.CTk):
                                        command=self._on_reset_clicked)
         self.btn_reset.grid(row=0, column=1, padx=5, sticky="e")
 
+        self.btn_increase_filtered = ctk.CTkButton(
+            self.top_ctrl_frame, text=self._get_text("btn_increase_filtered"),
+            command=self._on_increase_filtered_clicked)
+        self.btn_increase_filtered.grid(row=1, column=1, padx=5, pady=(4, 0), sticky="e")
+
+        self.btn_zero_unmodified = ctk.CTkButton(
+            self.top_ctrl_frame, text=self._get_text("btn_set_unmodified_one"),
+            fg_color=("#7C3AED", "#6D28D9"), hover_color=("#6D28D9", "#5B21B6"),
+            command=self._on_zero_unmodified_clicked)
+        self.btn_zero_unmodified.grid(row=1, column=2, padx=5, pady=(4, 0), sticky="e")
+
+        self.btn_apply = ctk.CTkButton(self.top_ctrl_frame, text=self._get_text("btn_apply"),
+                                       command=self._on_apply_clicked)
+        self.btn_apply.grid(row=1, column=3, padx=5, pady=(4, 0), sticky="e")
+
+        self.btn_import = ctk.CTkButton(self.top_ctrl_frame, text=self._get_text("btn_import"),
+                                        command=self._on_import_clicked)
+        self.btn_import.grid(row=1, column=4, padx=5, pady=(4, 0), sticky="e")
+
         self.btn_export = ctk.CTkButton(self.top_ctrl_frame, text=self._get_text("btn_export"),
                                         fg_color=("#5CB85C", "#4CAE4C"), hover_color=("#4CAE4C", "#398439"),
                                         font=("Helvetica", 12, "bold"), command=self._on_export_clicked)
@@ -212,9 +239,12 @@ class ChanceWeightEditorApp(ctk.CTk):
             draw_header=tr.draw_header,
             draw_row=self._draw_canvas_row,
             edit_bounds=tr.edit_bounds,
+            header_column_at=tr.column_at,
+            on_header_click=self._on_header_sort,
             can_edit=self._can_edit_canvas_row,
             edit_value=self._canvas_edit_value,
             on_save=self._on_save_canvas_weight,
+            on_zero=self._on_zero_canvas_weight,
         )
         self.virtual_table.grid(row=0, column=0, sticky="nsew")
         self.virtual_table.set_theme(self.theme)
@@ -222,11 +252,14 @@ class ChanceWeightEditorApp(ctk.CTk):
     # ================= Header 建立/更新 =================
 
     def _current_headers_text(self) -> List[str]:
-        return [
+        headers = [
             self._get_text("th_eff_id"), self._get_text("th_eff_name"),
             self._get_text("th_final_w"),
             self._get_text("th_chance"), self._get_text("th_edit"),
         ]
+        if self._sort_column is not None:
+            headers[self._sort_column] += " ▼" if self._sort_reverse else " ▲"
+        return headers
 
     def _refresh_header(self):
         """Header 只在語言/主題切換時呼叫，Weight 修改不會觸發。"""
@@ -264,11 +297,16 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.lbl_theme.configure(text=self._get_text("theme_select"))
         self.lbl_table.configure(text=self._get_text("table_select"))
         self.lbl_filter_title.configure(text=self._get_text("filter_panel"))
+        self.btn_clear_filters.configure(text=self._get_text("btn_clear_filters"))
 
         self.lbl_data_title.configure(
             text=f"{self._get_text('data_panel')} - Table ID: {self.selected_table_id}"
         )
         self.btn_reset.configure(text=self._get_text("btn_reset"))
+        self.btn_increase_filtered.configure(text=self._get_text("btn_increase_filtered"))
+        self.btn_zero_unmodified.configure(text=self._get_text("btn_set_unmodified_one"))
+        self.btn_apply.configure(text=self._get_text("btn_apply"))
+        self.btn_import.configure(text=self._get_text("btn_import"))
         self.btn_export.configure(text=self._get_text("btn_export"))
 
         self._refresh_header()
@@ -288,6 +326,9 @@ class ChanceWeightEditorApp(ctk.CTk):
 
     def get_active_filter_ids(self) -> Set[str]:
         return self.filter_controller.get_active_filter_ids()
+
+    def _on_clear_filters_clicked(self):
+        self.filter_controller.clear_all_filters()
 
     def _build_display_records(self) -> List[EditableAttachEffectTableRecord]:
         active_filters = self.get_active_filter_ids()
@@ -322,6 +363,9 @@ class ChanceWeightEditorApp(ctk.CTk):
         table_chance_dict = GameParam.editable_chance_map.get(self.selected_table_id, {})
         self._current_chance_map = table_chance_dict
 
+        if self._sort_column is not None:
+            display_records.sort(key=self._sort_key, reverse=self._sort_reverse)
+
         self._refresh_header()
         self.virtual_table.set_row_count(len(display_records))
 
@@ -347,6 +391,23 @@ class ChanceWeightEditorApp(ctk.CTk):
     def _canvas_edit_value(self, idx: int) -> str:
         return str(self._current_display_records[idx].final_chance_weight)
 
+    def _on_header_sort(self, column: int) -> None:
+        if self._sort_column == column:
+            self._sort_reverse = not self._sort_reverse
+        else:
+            self._sort_column = column
+            self._sort_reverse = False
+        self.refresh_data_grid()
+
+    def _sort_key(self, record: EditableAttachEffectTableRecord):
+        if self._sort_column == 0:
+            return int(record.attachEffectId)
+        if self._sort_column == 1:
+            return self.loc.get_effect_name_and_filter(record.attachEffectId)[0]
+        if self._sort_column == 3:
+            return self._current_chance_map.get(record.attachEffectId, 0.0)
+        return record.final_chance_weight
+
     # ================= Weight 儲存 / 重置 / 匯出 =================
 
     def _on_save_canvas_weight(self, idx: int, input_str: str):
@@ -368,11 +429,71 @@ class ChanceWeightEditorApp(ctk.CTk):
         except PermissionError as pe:
             messagebox.showerror(self._get_text("msg_err"), str(pe))
 
+    def _on_zero_canvas_weight(self, idx: int):
+        if not self._can_edit_canvas_row(idx):
+            return
+        record = self._current_display_records[idx]
+        try:
+            record.update_weight(0)
+            GameParam.update_chance_rate_map(record.ID)
+            self.refresh_data_grid()
+        except PermissionError as error:
+            messagebox.showerror(self._get_text("msg_err"), str(error))
+
+    def _on_increase_filtered_clicked(self):
+        editable_records = [record for index, record in enumerate(self._current_display_records)
+                            if self._can_edit_canvas_row(index)]
+        if not editable_records:
+            return
+        if not messagebox.askyesno(self._get_text("btn_increase_filtered"),
+                                   self._get_text("increase_filtered_confirm").format(count=len(editable_records))):
+            return
+        for record in editable_records:
+            record.update_weight(record.final_chance_weight + 100)
+        GameParam.update_chance_rate_map(self.selected_table_id)
+        self.refresh_data_grid()
+        messagebox.showinfo(self._get_text("msg_success"),
+                            self._get_text("increase_filtered_ok").format(count=len(editable_records)))
+
     def _on_reset_clicked(self):
         GameParam.reset_editable()
         self.refresh_data_grid()
         messagebox.showinfo(self._get_text("msg_success"),
                             self._get_text("reset_ok"))
+
+    def _on_zero_unmodified_clicked(self):
+        if not messagebox.askyesno(
+                self._get_text("btn_set_unmodified_one"),
+                self._get_text("set_unmodified_one_confirm").format(table_id=self.selected_table_id)):
+            return
+        count = GameParam.set_unmodified_editable_records_to_one(self.selected_table_id)
+        self.refresh_data_grid()
+        messagebox.showinfo(
+            self._get_text("msg_success"),
+            self._get_text("set_unmodified_one_ok").format(count=count))
+
+    def _on_import_clicked(self):
+        file_path = filedialog.askopenfilename(filetypes=[
+            (self._get_text("file_csv"), "*.csv"), (self._get_text("file_all"), "*.*")],
+            title=self._get_text("btn_import"))
+        if not file_path:
+            return
+        try:
+            count = GameParam.import_editable_from_csv(file_path)
+            self.refresh_data_grid()
+            messagebox.showinfo(self._get_text("msg_success"), self._get_text("import_ok").format(count=count))
+        except (OSError, ValueError, PermissionError) as error:
+            messagebox.showerror(self._get_text("msg_err"), str(error))
+
+    def _on_apply_clicked(self):
+        if not messagebox.askyesno(self._get_text("btn_apply"), self._get_text("apply_confirm")):
+            return
+        try:
+            count = GameParam.apply_table_changes_to_others(self.selected_table_id)
+            self.refresh_data_grid()
+            messagebox.showinfo(self._get_text("msg_success"), self._get_text("apply_ok").format(count=count))
+        except (ValueError, PermissionError) as error:
+            messagebox.showerror(self._get_text("msg_err"), str(error))
 
     def _on_export_clicked(self):
         # 1. 定位程式 root_path 與目標 extract 資料夾
@@ -392,7 +513,7 @@ class ChanceWeightEditorApp(ctk.CTk):
             initialdir=extract_dir,
             initialfile=default_filename,
             defaultextension=".csv",
-            filetypes=[("CSV Files", "*.csv"), ("All Files", "*.*")],
+            filetypes=[(self._get_text("file_csv"), "*.csv"), (self._get_text("file_all"), "*.*")],
             title=self._get_text("btn_export")
         )
 

@@ -18,10 +18,15 @@ def _column_edges(width: int) -> List[int]:
     return edges
 
 
-def edit_bounds(width: int) -> Tuple[int, int, int]:
+def edit_bounds(width: int) -> Tuple[int, int, int, int]:
     edges = _column_edges(width)
     left, right = edges[4], edges[5]
-    return left, right - 36, right
+    return left, right - 70, right - 36, right
+
+
+def column_at(x: int, width: int) -> int:
+    edges = _column_edges(width)
+    return next((index for index in range(len(edges) - 1) if x < edges[index + 1]), len(edges) - 2)
 
 
 def draw_header(canvas: tk.Canvas, headers: List[str], width: int, height: int, theme) -> None:
@@ -63,7 +68,7 @@ def draw_row(canvas: tk.Canvas, record, row_index: int, effect_name: str,
             width=max(right - left - 16, 1), tags="row",
         )
 
-    left, save_left, right = edit_bounds(width)
+    left, save_left, zero_left, right = edit_bounds(width)
     canvas.create_rectangle(left, y, right, y + height,
                             fill=row_bg, outline=border, tags="row")
     if is_locked:
@@ -73,7 +78,12 @@ def draw_row(canvas: tk.Canvas, record, row_index: int, effect_name: str,
         canvas.create_rectangle(left + 4, y + 10, save_left - 4, y + height - 10,
                                 fill=theme.entry_default_bg, outline="", tags="row")
     button_bg = theme.save_btn_disabled_bg if is_locked else theme.save_btn_normal_bg
-    canvas.create_rectangle(save_left + 2, y + 10, right - 4, y + height - 10,
+    canvas.create_rectangle(save_left + 2, y + 10, zero_left - 2, y + height - 10,
                             fill=button_bg, outline="", tags="row")
-    canvas.create_text((save_left + right) // 2, y + height // 2, text="✔",
+    canvas.create_text((save_left + zero_left) // 2, y + height // 2, text="✔",
+                       fill=theme.text_color, font=("Helvetica", 11, "bold"), tags="row")
+    zero_bg = theme.save_btn_disabled_bg if is_locked else "#C0392B"
+    canvas.create_rectangle(zero_left + 2, y + 10, right - 4, y + height - 10,
+                            fill=zero_bg, outline="", tags="row")
+    canvas.create_text((zero_left + right) // 2, y + height // 2, text="0",
                        fill=theme.text_color, font=("Helvetica", 11, "bold"), tags="row")

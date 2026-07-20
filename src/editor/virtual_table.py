@@ -14,10 +14,13 @@ class VirtualTable(tk.Frame):
         row_height: int,
         draw_header: Callable[[tk.Canvas, List[str], int, int, object], None],
         draw_row: Callable[[tk.Canvas, int, int, int, int, object], None],
-        edit_bounds: Callable[[int], Tuple[int, int, int]],
+        edit_bounds: Callable[[int], Tuple[int, int, int, int]],
+        header_column_at: Callable[[int, int], int],
+        on_header_click: Callable[[int], None],
         can_edit: Callable[[int], bool],
         edit_value: Callable[[int], str],
         on_save: Callable[[int, str], None],
+        on_zero: Callable[[int], None],
     ) -> None:
         super().__init__(master, bd=0, highlightthickness=0)
         self.row_height = row_height
@@ -25,9 +28,12 @@ class VirtualTable(tk.Frame):
         self._draw_header = draw_header
         self._draw_row = draw_row
         self._edit_bounds = edit_bounds
+        self._header_column_at = header_column_at
+        self._on_header_click = on_header_click
         self._can_edit = can_edit
         self._edit_value = edit_value
         self._on_save = on_save
+        self._on_zero = on_zero
         self._headers: List[str] = []
         self._theme = None
         self._total_rows = 0
@@ -47,6 +53,7 @@ class VirtualTable(tk.Frame):
         self.canvas.configure(yscrollcommand=self._on_yscroll)
 
         self.header_canvas.bind("<Configure>", lambda _event: self._redraw_header())
+        self.header_canvas.bind("<Button-1>", self._on_header_clicked)
         self.canvas.bind("<Configure>", self._on_canvas_configure)
         self.canvas.bind("<Button-1>", self._on_canvas_click)
         self.bind("<Enter>", self._bind_mousewheel)
@@ -99,6 +106,9 @@ class VirtualTable(tk.Frame):
         self.canvas.configure(scrollregion=(0, 0, event.width, max(self._total_rows * self.row_height, 1)))
         self.request_refresh()
 
+    def _on_header_clicked(self, event) -> None:
+        self._on_header_click(self._header_column_at(event.x, self.header_canvas.winfo_width()))
+
     def _on_yscroll(self, first, last) -> None:
         self.vsb.set(first, last)
         self.request_refresh()
@@ -109,11 +119,14 @@ class VirtualTable(tk.Frame):
         index = int(self.canvas.canvasy(event.y) // self.row_height)
         if not 0 <= index < self._total_rows:
             return
-        edit_left, save_left, edit_right = self._edit_bounds(self.canvas.winfo_width())
+        edit_left, save_left, zero_left, edit_right = self._edit_bounds(self.canvas.winfo_width())
         x = self.canvas.canvasx(event.x)
         if x < edit_left or x > edit_right:
             return
-        if x >= save_left and index == self._editing_index:
+        if x >= zero_left and self._can_edit(index):
+            self._close_editor()
+            self._on_zero(index)
+        elif x >= save_left and index == self._editing_index:
             self._save_editor()
         elif x < save_left and self._can_edit(index):
             self._show_editor(index, edit_left, save_left)
