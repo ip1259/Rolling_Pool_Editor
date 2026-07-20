@@ -55,6 +55,8 @@ class AttachEffectTable:
 # --- III. 專屬可編輯資料結構 ---
 class EditableAttachEffectTableRecord:
     """專供 GUI 編輯使用的資料包，封裝了特殊的權重特判與同步規則"""
+    EDITABLE_TABLES = set(["100", "110", "200", "210", "300", "310",
+                           "2000000", "2100000", "2200000", "3000000"])
 
     def __init__(self, ID: str, Name: str, unknown_0: str, attachEffectId: str, chanceWeight: int, chanceWeight_dlc: int):
         self._ID = ID
@@ -84,6 +86,10 @@ class EditableAttachEffectTableRecord:
         if self._chanceWeight_dlc == -1:
             return self._chanceWeight
         return self._chanceWeight_dlc
+
+    @property
+    def origin_chance_weight(self) -> int:
+        return self._originWeight
 
     def update_weight(self, value: int):
         """修改權重方法 (包含鎖定與聯動規則)"""
@@ -273,4 +279,91 @@ class GameParamManager:
 
 
 # 全域單例
+
+    def import_editable_from_csv(self, csv_path: str) -> int:
+        """Import weights into existing editable records by table and effect IDs."""
+        updated_tables = set()
+        updated_count = 0
+        with open(csv_path, mode="r", encoding="utf-8-sig", newline="") as file:
+            reader = csv.DictReader(file)
+            required = {"ID", "attachEffectId",
+                        "chanceWeight", "chanceWeight_dlc"}
+            if not reader.fieldnames or not required.issubset(reader.fieldnames):
+                raise ValueError(
+                    "CSV must include ID, attachEffectId, chanceWeight, and chanceWeight_dlc columns.")
+            for row in reader:
+                table_id, effect_id = str(
+                    row["ID"]), str(row["attachEffectId"])
+                record = self.EditableAttachEffectTable.get(
+                    table_id, {}).get(effect_id)
+                if record is None or record.origin_chance_weight == 0:
+                    continue
+                dlc_weight = int(row["chanceWeight_dlc"])
+                record.update_weight(
+                    dlc_weight if dlc_weight != -1 else int(row["chanceWeight"]))
+                updated_tables.add(table_id)
+                updated_count += 1
+        for table_id in updated_tables:
+            self.update_chance_rate_map(table_id)
+        return updated_count
+
+    def apply_table_changes_to_others(self, source_table_id: str) -> int:
+        """Apply changed source weights to matching filters in every other table."""
+        TARGET_TABLES = EditableAttachEffectTableRecord.EDITABLE_TABLES
+        source_table = self.EditableAttachEffectTable.get(source_table_id, {})
+        changes = [record for record in source_table.values()
+                   if record.origin_chance_weight > 0
+                   and record.final_chance_weight != record.origin_chance_weight]
+        touched_tables = set()
+        applied_count = 0
+        for target_table_id, target_table in self.EditableAttachEffectTable.items():
+            if target_table_id == source_table_id or str(target_table_id) not in TARGET_TABLES:
+                continue
+            for source in changes:
+                source_effect = self.AttachEffect.get(source.attachEffectId)
+                if source_effect is None:
+                    continue
+                candidates = []
+                for target in target_table.values():
+                    target_effect = self.AttachEffect.get(
+                        target.attachEffectId)
+                    if (target.origin_chance_weight > 0 and target_effect is not None
+                            and target_effect.attachFilterParamId == source_effect.attachFilterParamId):
+                        candidates.append(target)
+                if not candidates:
+                    continue
+                source_effect_id = int(source.attachEffectId)
+                if source.final_chance_weight > source.origin_chance_weight:
+                    target = max(candidates, key=lambda item: int(
+                        item.attachEffectId))
+                else:
+                    lower_or_equal = [item for item in candidates if int(
+                        item.attachEffectId) <= source_effect_id]
+                    if not lower_or_equal:
+                        continue
+                    target = max(lower_or_equal, key=lambda item: int(
+                        item.attachEffectId))
+                target.update_weight(source.final_chance_weight)
+                touched_tables.add(target_table_id)
+                print(
+                    f"touched table:{target_table_id}, Effect ID:{target.ID}")
+                applied_count += 1
+        for table_id in touched_tables:
+            self.update_chance_rate_map(table_id)
+        return applied_count
+
+    def set_unmodified_editable_records_to_one(self, table_id: str) -> int:
+        """Set untouched, non-locked records to one in one editable table."""
+        if table_id not in EditableAttachEffectTableRecord.EDITABLE_TABLES:
+            return 0
+        changed_count = 0
+        for record in self.EditableAttachEffectTable.get(table_id, {}).values():
+            if record.origin_chance_weight > 0 and record.final_chance_weight == record.origin_chance_weight:
+                record.update_weight(1)
+                changed_count += 1
+        if changed_count:
+            self.update_chance_rate_map(table_id)
+        return changed_count
+
+
 GameParam = GameParamManager(r"src\game_data\game_param.db")
