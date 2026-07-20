@@ -25,7 +25,7 @@ ChanceWeightEditorApp (v2)
 from __future__ import annotations
 
 import os
-from typing import Dict, List, Set, Tuple
+from typing import List, Set, Tuple
 
 import customtkinter as ctk
 from tkinter import messagebox, filedialog
