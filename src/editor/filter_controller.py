@@ -18,7 +18,6 @@ class FilterController:
         self._block_filter_event = False
         self._initial_filters = set(initial_filters or ())
 
-        # 新增：標記是否為首次建立，用來判定是否套用預設摺疊狀態
         self._is_first_build = True
 
         self.sub_cat_vars: Dict[str, ctk.BooleanVar] = {}
@@ -26,13 +25,12 @@ class FilterController:
         self.filter_to_sub_map: Dict[str, str] = {}
         self.sub_to_filters_map: Dict[str, List[str]] = {}
 
-        # 大分類的狀態與 UI 參考[cite: 1]
+        # Collapse state is preserved when labels are rebuilt for a language change.
         self.collapsed_categories: Set[str] = set()
         self._category_frames: Dict[str, ctk.CTkFrame] = {}
         self._category_buttons: Dict[str, ctk.CTkButton] = {}
         self._category_titles: Dict[str, str] = {}
 
-        # 中分類的狀態與 UI 參考[cite: 1]
         self.collapsed_sub_categories: Set[str] = set()
         self._sub_category_frames: Dict[str, ctk.CTkFrame] = {}
         self._sub_category_buttons: Dict[str, ctk.CTkButton] = {}
@@ -54,7 +52,6 @@ class FilterController:
         self._sub_category_frames.clear()
         self._sub_category_buttons.clear()
 
-        # 新增：如果是首次執行，將所有分類預設加入摺疊清單
         if self._is_first_build:
             self.collapsed_categories = set(
                 self._game_param.AttachEffectFilterCategory.keys())
@@ -141,17 +138,13 @@ class FilterController:
                         command=lambda f=filter_id: self._on_filter_toggled(f),
                     )
 
-                    # 修改：將原本的 padx=40 加大至 (60, 20)，使得最後的子元素再往右退多一點[cite: 1]
-                    # tuple 格式 (left_padding, right_padding) 確保不會因過度推擠造成右側裁切
                     filter_checkbox.grid(
                         row=filter_row, column=0, sticky="w", padx=(60, 20), pady=1)
                     filter_row += 1
 
-                # 初始檢查是否需要隱藏中分類內容
                 if sub_id in self.collapsed_sub_categories:
                     sub_content.grid_remove()
 
-            # 初始檢查是否需要隱藏大分類內容
             if category_id in self.collapsed_categories:
                 content.grid_remove()
 

@@ -1,26 +1,4 @@
-"""
-ChanceWeightEditorApp (v2)
-==========================
-對應 plan.md 整體架構重構。
-
-保留與原版 100% 相同的功能與外部行為：
-    - 語系切換 / 主題切換 / 表格切換
-    - 過濾器樹狀結構與父子連動勾選
-    - Weight 編輯、儲存驗證、鎖定判斷 (initially_locked_records)
-    - 3000000 群組警告檢查
-    - 重置 / 匯出 CSV
-
-效能提升重點 (對應 plan.md)：
-    - ThemeCache / LocalizationCache：避免重複查詢與重複運算
-    - VirtualTable：畫面上固定只有 ~40 個 Row Widget，不論資料筆數多寡
-    - Row Renderer 全面採用差異比對 (diff) 後才 configure()
-    - Save 按鈕 / Entry 綁定只建立一次，不再每次 refresh 都重新 bind/configure(command=...)
-
-⚠️ 本檔案為純 Python + CustomTkinter 專案，不涉及 QML / .ui.qml，
-   因此不套用 Connections/onXxxx 相關規則；但仍謹慎確認：
-   所有原本存在的事件綁定 (command=..., bind("<Return>"...), 下拉選單 command=...)
-   在重構後都保留、且只在必要時機重新綁定，未被誤刪。
-"""
+"""Main CustomTkinter application for editing rolling-pool weights."""
 
 from __future__ import annotations
 
@@ -68,11 +46,10 @@ class ChanceWeightEditorApp(ctk.CTk):
                                   "300", "310", "2000000", "2100000", "2200000", "3000000"]
         self.selected_table_id = self.allowed_table_ids[0]
 
-        # 🔒 建立初始鎖定名單快照 (儲存格式: {(table_id, eff_id), ...})
+        # Locked records are identified from their original weights at startup.
         self.initially_locked_records: Set[Tuple[str, str]] = set()
         self._record_initial_locks()
 
-        # ---- 快取物件 ----
         self.theme = ThemeCache()
         self.theme.refresh()
         self.loc = LocalizationCache(GameText)
@@ -88,17 +65,16 @@ class ChanceWeightEditorApp(ctk.CTk):
 
         self._setup_layout()
 
-        # Filter controller 需要在 filter_scroll 建立之後才能初始化
+        # The filter tree requires the frame created by _setup_layout().
         self.filter_controller = FilterController(
             self.filter_scroll, GameParam, GameText, on_change=self._on_filters_changed,
             initial_filters=set(configured_filters))
         self.filter_controller.build_tree()
+        self._update_auto_configure_button_state()
 
         self.warning_controller = WarningController(self.lbl_warning, self._get_text)
 
         self.refresh_data_grid()
-
-    # ================= 初始化輔助 =================
 
     def _record_initial_locks(self):
         """在初始化時，掃描並記錄哪些資料原本就是 0 權重，進行永久鎖定"""
@@ -110,14 +86,11 @@ class ChanceWeightEditorApp(ctk.CTk):
     def _get_text(self, key: str) -> str:
         return self.loc.get_text(key)
 
-    # ================= 版面配置 =================
-
     def _setup_layout(self):
         self.grid_columnconfigure(0, weight=1, minsize=350)
         self.grid_columnconfigure(1, weight=4)
         self.grid_rowconfigure(0, weight=1)
 
-        # ================= 左側控制面板 =================
         self.left_panel = ctk.CTkFrame(self, corner_radius=0)
         self.left_panel.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         self.left_panel.grid_columnconfigure(0, weight=1)
@@ -137,7 +110,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             self.setting_box, text=self._get_text("lang_select"), anchor="w")
         self.lbl_lang.grid(row=0, column=0, sticky="w", pady=5)
 
-        # 🛠️ 從 GameText 動態獲取資料庫內實際擁有的語系清單
         db_langs = GameText.get_available_languages_for_gui()
         lang_options = [f"{name} ({code})" for code, name in db_langs] if db_langs else [
             "繁體中文 (zhotw)"]
@@ -147,7 +119,6 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.combo_lang.grid(row=0, column=1, sticky="ew",
                              padx=(10, 0), pady=5)
 
-        # 🎯 自動將選單同步為目前的預設語系 (例如 zhotw)
         current_native = GameText.LANGUAGE_MAP.get(
             self.current_gui_lang, self.current_gui_lang)
         default_option = f"{current_native} ({self.current_gui_lang})"
@@ -158,7 +129,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             self.setting_box, text=self._get_text("theme_select"), anchor="w")
         self.lbl_theme.grid(row=1, column=0, sticky="w", pady=5)
 
-        # 🚀 綁定專用 Theme 變更事件
         self.combo_theme = ctk.CTkOptionMenu(
             self.setting_box, values=["Dark", "Light"], command=self._on_theme_changed)
         self.combo_theme.grid(
@@ -190,7 +160,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             row=4, column=0, sticky="nsew", padx=15, pady=(0, 15))
         self.filter_scroll.grid_columnconfigure(0, weight=1)
 
-        # ================= 右側參數編輯區 =================
         self.right_panel = ctk.CTkFrame(self, fg_color="transparent")
         self.right_panel.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         self.right_panel.grid_columnconfigure(0, weight=1)
@@ -235,6 +204,11 @@ class ChanceWeightEditorApp(ctk.CTk):
                                         font=("Helvetica", 12, "bold"), command=self._on_export_clicked)
         self.btn_export.grid(row=0, column=2, padx=5, sticky="e")
 
+        self.btn_auto_configure = ctk.CTkButton(
+            self.top_ctrl_frame, text=self._get_text("btn_auto_configure"),
+            state="disabled", command=self._on_auto_configure_clicked)
+        self.btn_auto_configure.grid(row=0, column=3, padx=5, sticky="e")
+
         self.lbl_warning = ctk.CTkLabel(self.right_panel, text="", font=("Helvetica", 12, "bold"),
                                         fg_color=("#F2DEDE", "#3A1F1F"), text_color=("#A94442", "#D9534F"),
                                         height=32, corner_radius=4, anchor="w", padx=10)
@@ -242,7 +216,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             row=1, column=0, sticky="ew", padx=10, pady=(2, 5))
         self.lbl_warning.grid_remove()
 
-        # ---- 資料表格容器：Header (固定) + VirtualTable (虛擬捲動) ----
         self.table_container = ctk.CTkFrame(self.right_panel, fg_color="transparent")
         self.table_container.grid(row=2, column=0, sticky="nsew", padx=10, pady=(0, 10))
         self.table_container.grid_columnconfigure(0, weight=1)
@@ -264,8 +237,6 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.virtual_table.grid(row=0, column=0, sticky="nsew")
         self.virtual_table.set_theme(self.theme)
 
-    # ================= Header 建立/更新 =================
-
     def _current_headers_text(self) -> List[str]:
         headers = [
             self._get_text("th_eff_id"), self._get_text("th_eff_name"),
@@ -280,8 +251,6 @@ class ChanceWeightEditorApp(ctk.CTk):
         """Header 只在語言/主題切換時呼叫，Weight 修改不會觸發。"""
         self.virtual_table.set_headers(self._current_headers_text())
 
-    # ================= 事件：主題 / 語言 / 表格切換 =================
-
     def _on_theme_changed(self, mode: str):
         """主題切換：重新計算 ThemeCache，並更新 Header 與目前可視列的顏色。"""
         ctk.set_appearance_mode(mode)
@@ -293,7 +262,7 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.warning_controller.check(GameParam)
 
     def _on_language_changed(self, selected_lang_str: str):
-        """當使用者在下拉選單切換語系時觸發，動態刷新全域介面與資料快取"""
+        """Reload interface and game text after a language change."""
         try:
             if "(" in selected_lang_str and selected_lang_str.endswith(")"):
                 code = selected_lang_str.split("(")[-1].rstrip(")")
@@ -326,10 +295,11 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.btn_apply.configure(text=self._get_text("btn_apply"))
         self.btn_import.configure(text=self._get_text("btn_import"))
         self.btn_export.configure(text=self._get_text("btn_export"))
+        self.btn_auto_configure.configure(text=self._get_text("btn_auto_configure"))
 
         self._refresh_header()
 
-        # 重新建構左側過濾器樹狀結構 (內容依賴 GameText 翻譯)
+        # Filter labels depend on the current game-text language.
         self.filter_controller.build_tree()
 
         self.refresh_data_grid()
@@ -340,14 +310,18 @@ class ChanceWeightEditorApp(ctk.CTk):
             text=f"{self._get_text('data_panel')} - Table ID: {self.selected_table_id}")
         self.refresh_data_grid()
 
-    # ================= 資料表格刷新 =================
-
     def get_active_filter_ids(self) -> Set[str]:
         return self.filter_controller.get_active_filter_ids()
 
     def _on_filters_changed(self):
-        self.config.update(filters=sorted(self.get_active_filter_ids(), key=int))
+        active_filters = self.get_active_filter_ids()
+        self.config.update(filters=sorted(active_filters, key=int))
+        self._update_auto_configure_button_state()
         self.refresh_data_grid()
+
+    def _update_auto_configure_button_state(self):
+        state = "normal" if self.get_active_filter_ids() else "disabled"
+        self.btn_auto_configure.configure(state=state)
 
     def _on_clear_filters_clicked(self):
         self.filter_controller.clear_all_filters()
@@ -369,11 +343,7 @@ class ChanceWeightEditorApp(ctk.CTk):
         return display_records
 
     def refresh_data_grid(self):
-        """
-        🚀 效能優化版：
-        - Header 不在此處重建 (只在語言/主題切換時才需要)。
-        - Row 內容交給 VirtualTable，只有目前可視的 ~40 列會被重新渲染。
-        """
+        """Refresh the visible records and their calculated chance rates."""
         self.warning_controller.check(GameParam)
 
         table_dict = GameParam.EditableAttachEffectTable.get(self.selected_table_id, {})
@@ -392,7 +362,7 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.virtual_table.set_row_count(len(display_records))
 
     def _draw_canvas_row(self, canvas, idx: int, y: int, width: int, height: int, theme):
-        """VirtualTable 的 render_row callback：把第 idx 筆 display_records 資料填入 widgets。"""
+        """Draw one visible row for the virtual table."""
         if idx >= len(self._current_display_records):
             return
         record = self._current_display_records[idx]
@@ -430,8 +400,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             return self._current_chance_map.get(record.attachEffectId, 0.0)
         return record.final_chance_weight
 
-    # ================= Weight 儲存 / 重置 / 匯出 =================
-
     def _on_save_canvas_weight(self, idx: int, input_str: str):
         if idx >= len(self._current_display_records):
             return
@@ -441,8 +409,6 @@ class ChanceWeightEditorApp(ctk.CTk):
             record.update_weight(val)
             GameParam.update_chance_rate_map(record.ID)
 
-            # 效能再進化：不需要重新計算 headers，也不需要重建物件，
-            # 只需要刷新目前可視的資料列 (VirtualTable 內部已處理)
             self.refresh_data_grid()
 
         except ValueError:
@@ -494,6 +460,19 @@ class ChanceWeightEditorApp(ctk.CTk):
             self._get_text("msg_success"),
             self._get_text("set_unmodified_one_ok").format(count=count))
 
+    def _on_auto_configure_clicked(self):
+        if not self.get_active_filter_ids():
+            return
+        if not messagebox.askyesno(
+                self._get_text("btn_auto_configure"),
+                self._get_text("auto_configure_confirm")):
+            return
+        count = GameParam.auto_configure_all_tables(self.get_active_filter_ids())
+        self.refresh_data_grid()
+        messagebox.showinfo(
+            self._get_text("msg_success"),
+            self._get_text("auto_configure_ok").format(count=count))
+
     def _on_import_clicked(self):
         file_path = filedialog.askopenfilename(filetypes=[
             (self._get_text("file_csv"), "*.csv"), (self._get_text("file_all"), "*.*")],
@@ -518,9 +497,7 @@ class ChanceWeightEditorApp(ctk.CTk):
             messagebox.showerror(self._get_text("msg_err"), str(error))
 
     def _on_export_clicked(self):
-        # 1. 定位程式 root_path 與目標 extract 資料夾
         root_path = os.path.dirname(os.path.abspath(__file__))
-        # editor/ 目錄的上一層才是專案根目錄
         root_path = os.path.dirname(root_path)
         extract_dir = os.path.join(root_path, "extract")
 

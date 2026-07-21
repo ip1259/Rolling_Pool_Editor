@@ -36,5 +36,8 @@
   "btn_clear_filters": "Clear All Filters",
   "btn_increase_filtered": "Add 100 to Filtered",
   "increase_filtered_confirm": "Add 100 to each of the {count} editable filtered records?",
-  "increase_filtered_ok": "Added 100 to {count} filtered records."
+  "increase_filtered_ok": "Added 100 to {count} filtered records.",
+  "btn_auto_configure": "Auto Configure",
+  "auto_configure_confirm": "Automatically configure all editable tables using the selected filters? Locked and modified records will be preserved.",
+  "auto_configure_ok": "Automatically configured {count} records."
 }

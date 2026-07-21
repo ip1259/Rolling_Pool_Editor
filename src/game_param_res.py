@@ -3,9 +3,6 @@ import csv
 import os
 from dataclasses import dataclass
 
-# --- I. 智慧型防呆字典 ---
-
-
 class ParamDict(dict):
     def __getitem__(self, key): return super().__getitem__(str(key))
     def get(self, key, default=None): return super().get(str(key), default)
@@ -13,7 +10,6 @@ class ParamDict(dict):
     def keys(self): return super().keys()
 
 
-# --- II. 唯讀資料結構 (Data Containers) ---
 @dataclass(frozen=True)
 class AttachEffectFilterCategory:
     ID: str
@@ -40,28 +36,34 @@ class AttachEffect:
     ID: str
     attachTextId: str
     attachFilterParamId: str
+    passiveSpEffectId_1: str
 
 
 @dataclass(frozen=True)
 class AttachEffectTable:
     ID: str
     Name: str
-    unknown_0: str  # 已同步加回
+    unknown_0: str
     attachEffectId: str
     chanceWeight: int
     chanceWeight_dlc: int
 
 
-# --- III. 專屬可編輯資料結構 ---
+@dataclass(frozen=True)
+class SpEffectParam:
+    ID: str
+    spCategory: str
+
+
 class EditableAttachEffectTableRecord:
-    """專供 GUI 編輯使用的資料包，封裝了特殊的權重特判與同步規則"""
+    """Mutable weight record used by the editor."""
     EDITABLE_TABLES = set(["100", "110", "200", "210", "300", "310",
                            "2000000", "2100000", "2200000", "3000000"])
 
     def __init__(self, ID: str, Name: str, unknown_0: str, attachEffectId: str, chanceWeight: int, chanceWeight_dlc: int):
         self._ID = ID
         self._Name = Name
-        self._unknown_0 = unknown_0  # 唯讀留存，確保輸出完整性
+        self._unknown_0 = unknown_0
         self._attachEffectId = attachEffectId
         self._chanceWeight = chanceWeight
         self._chanceWeight_dlc = chanceWeight_dlc
@@ -82,7 +84,7 @@ class EditableAttachEffectTableRecord:
 
     @property
     def final_chance_weight(self) -> int:
-        """動態計算最終權重"""
+        """Return the DLC weight when present, otherwise the base weight."""
         if self._chanceWeight_dlc == -1:
             return self._chanceWeight
         return self._chanceWeight_dlc
@@ -91,8 +93,12 @@ class EditableAttachEffectTableRecord:
     def origin_chance_weight(self) -> int:
         return self._originWeight
 
+    @property
+    def is_modified(self) -> bool:
+        return self.final_chance_weight != self._originWeight
+
     def update_weight(self, value: int):
-        """修改權重方法 (包含鎖定與聯動規則)"""
+        """Update both weight fields when the record has a DLC override."""
         if self._originWeight == 0:
             raise PermissionError(
                 f"❌ 修改失敗：項目 (Table: {self._ID}, Effect: {self._attachEffectId}) "
@@ -107,7 +113,6 @@ class EditableAttachEffectTableRecord:
             self._chanceWeight = target_value
 
 
-# --- IV. 核心管理類別 (GameParamManager) ---
 class GameParamManager:
     def __init__(self, db_path: str = "game_data/game_param.db"):
         self._db_path = db_path
@@ -118,6 +123,7 @@ class GameParamManager:
         self.AttachEffect = ParamDict()
         self.AttachEffectTable = ParamDict()
         self.EditableAttachEffectTable = ParamDict()
+        self.SpEffect = ParamDict()
         self._editable_chance_map = dict()
 
         self._raw_table_rows = []
@@ -136,7 +142,6 @@ class GameParamManager:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
 
-            # 1~4 基礎表加載
             cursor.execute(
                 "SELECT ID, textId, category FROM AttachEffectFilterCategoryParam")
             self.AttachEffectFilterCategory = ParamDict({r["ID"]: AttachEffectFilterCategory(
@@ -150,18 +155,21 @@ class GameParamManager:
             self.AttachEffectFilterSubCategory = ParamDict({r["ID"]: AttachEffectFilterSubCategory(
                 r["ID"], r["textId"], r["filterCategory"]) for r in cursor.fetchall()})
             cursor.execute(
-                "SELECT ID, attachTextId, attachFilterParamId FROM AttachEffectParam")
+                "SELECT ID, attachTextId, attachFilterParamId, passiveSpEffectId_1 FROM AttachEffectParam")
             self.AttachEffect = ParamDict({r["ID"]: AttachEffect(
-                r["ID"], r["attachTextId"], r["attachFilterParamId"]) for r in cursor.fetchall()})
+                r["ID"], r["attachTextId"], r["attachFilterParamId"], r['passiveSpEffectId_1']) for r in cursor.fetchall()})
+            cursor.execute(
+                "SELECT ID, spCategory FROM SpEffectParam")
+            self.SpEffect = ParamDict({r["ID"]: SpEffectParam(
+                r["ID"], r["spCategory"]) for r in cursor.fetchall()})
 
-            # 5. 載入 AttachEffectTableParam (依 row_id 排序以維持 CSV 原始順序)
-            # 查詢中加入了 unknown_0
+            # row_id preserves the source CSV order.
             cursor.execute(
                 "SELECT ID, Name, unknown_0, attachEffectId, chanceWeight, chanceWeight_dlc FROM AttachEffectTableParam ORDER BY row_id")
 
             self._raw_table_rows = [dict(row) for row in cursor.fetchall()]
 
-            # 建立唯讀字典 (重複項在此處自然被後續資料覆蓋，GUI 看不到幽靈重複項)
+            # Duplicate keys remain in _raw_table_rows but are hidden from the GUI map.
             self.AttachEffectTable.clear()
             for row in self._raw_table_rows:
                 t_id = str(row["ID"])
@@ -177,7 +185,6 @@ class GameParamManager:
                     self.AttachEffectTable[t_id] = ParamDict()
                 self.AttachEffectTable[t_id][eff_id] = item
 
-            # 同步初始化編輯層
             self.reset_editable()
 
         except sqlite3.OperationalError as e:
@@ -187,7 +194,7 @@ class GameParamManager:
                 conn.close()
 
     def reset_editable(self):
-        """重置編輯層：將唯一項暴露給 GUI，並默默將幽靈重複項封存於物理序列"""
+        """Rebuild editable records while preserving duplicate rows for export."""
         self.EditableAttachEffectTable.clear()
         self._editable_table_order.clear()
         self._editable_chance_map.clear()
@@ -204,7 +211,6 @@ class GameParamManager:
             unk_0 = str(row["unknown_0"]
                         ) if row["unknown_0"] is not None else ""
 
-            # 建立獨立的編輯層物件
             record = EditableAttachEffectTableRecord(
                 ID=t_id, Name=row["Name"], unknown_0=unk_0, attachEffectId=eff_id,
                 chanceWeight=c_weight, chanceWeight_dlc=c_weight_dlc
@@ -214,16 +220,14 @@ class GameParamManager:
                 self._editable_chance_map[t_id] = {}
 
             if key not in seen_keys:
-                # 唯一項：塞入 GUI 可見的巢狀字典
                 if t_id not in self.EditableAttachEffectTable:
                     self.EditableAttachEffectTable[t_id] = ParamDict()
                 self.EditableAttachEffectTable[t_id][eff_id] = record
                 seen_keys.add(key)
             else:
-                # 幽靈項：不放入 GUI 字典，使其無法被工具檢索與更動
                 pass
 
-            # 盲渡關鍵：無論唯一或重複，通通依原始順序塞進物理清單，導出時以此為準
+            # Export uses this complete ordered list, including duplicate keys.
             self._editable_table_order.append(record)
 
         for k in self._editable_chance_map.keys():
@@ -239,7 +243,7 @@ class GameParamManager:
                 rcrd.final_chance_weight/total_weight) if total_weight != 0 else 0
 
     def validate_editable(self) -> bool:
-        """核心規則檢驗"""
+        """Validate constraints required before export."""
         target_id = "3000000"
         if target_id in self.EditableAttachEffectTable:
             non_zero_items = [
@@ -259,13 +263,12 @@ class GameParamManager:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
         with open(output_path, mode='w', encoding='utf-8-sig', newline='') as f:
-            # ⚠️ 這裡的 fieldnames 順序極度關鍵，必須與遊戲舊有的 CSV 列順序完全一致
+            # Smithbox expects this field order.
             fieldnames = ["ID", "Name", "unknown_0",
                           "attachEffectId", "chanceWeight", "chanceWeight_dlc"]
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
 
-            # 依據盲渡物理清單輸出
             for item in self._editable_table_order:
                 writer.writerow({
                     "ID": item.ID,
@@ -276,8 +279,6 @@ class GameParamManager:
                     "chanceWeight_dlc": item.chanceWeight_dlc
                 })
         print(f"💾 配置校驗通過，已依原 CSV 完整佈局還原輸出：{output_path}")
-
-# 全域單例
 
     def import_editable_from_csv(self, csv_path: str) -> int:
         """Import weights into existing editable records by table and effect IDs."""
@@ -367,5 +368,51 @@ class GameParamManager:
             self.update_chance_rate_map(table_id)
         return changed_count
 
+    def auto_configure_all_tables(self, active_filter_ids) -> int:
+        """Apply automatic weights to untouched records in every editable table."""
+        changed_count = 0
+        touched_tables = set()
+
+        for table_id, table in self.EditableAttachEffectTable.items():
+            if table_id not in EditableAttachEffectTableRecord.EDITABLE_TABLES:
+                continue
+
+            eligible = [record for record in table.values()
+                        if record.origin_chance_weight > 0 and not record.is_modified]
+            filtered_groups = {}
+
+            for record in eligible:
+                effect = self.AttachEffect.get(record.attachEffectId)
+                if effect is None or effect.attachFilterParamId not in active_filter_ids:
+                    if record.final_chance_weight != 1:
+                        record.update_weight(1)
+                        changed_count += 1
+                        touched_tables.add(table_id)
+                    continue
+                filtered_groups.setdefault(effect.attachFilterParamId, []).append(record)
+
+            for records in filtered_groups.values():
+                records.sort(key=lambda item: int(item.attachEffectId), reverse=True)
+                highest_effect = self.AttachEffect[records[0].attachEffectId]
+                sp_effect = self.SpEffect.get(highest_effect.passiveSpEffectId_1)
+                sp_category = sp_effect.spCategory if sp_effect is not None else ""
+
+                for index, record in enumerate(records):
+                    if sp_category == "10":
+                        target_weight = (record.final_chance_weight + 300
+                                         if index == 0 else 1)
+                    elif sp_category == "20":
+                        target_weight = record.final_chance_weight + max(0, 300 - index * 50)
+                    else:
+                        target_weight = record.final_chance_weight + 300
+
+                    if target_weight != record.final_chance_weight:
+                        record.update_weight(target_weight)
+                        changed_count += 1
+                        touched_tables.add(table_id)
+
+        for table_id in touched_tables:
+            self.update_chance_rate_map(table_id)
+        return changed_count
 
 GameParam = GameParamManager(r"src\game_data\game_param.db")

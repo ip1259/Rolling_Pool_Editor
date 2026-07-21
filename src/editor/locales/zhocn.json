@@ -37,5 +37,8 @@
   "btn_clear_filters": "取消所有筛选",
   "btn_increase_filtered": "筛选项权重 +100",
   "increase_filtered_confirm": "要将当前筛选的 {count} 个可编辑项目权重各加 100 吗？",
-  "increase_filtered_ok": "已将 {count} 个筛选项目权重各加 100。"
+  "increase_filtered_ok": "已将 {count} 个筛选项目权重各加 100。",
+  "btn_auto_configure": "自动设置",
+  "auto_configure_confirm": "要根据当前筛选条件自动设置所有可编辑表格吗？锁定项和已修改项不会更改。",
+  "auto_configure_ok": "已自动设置 {count} 个项目。"
 }
