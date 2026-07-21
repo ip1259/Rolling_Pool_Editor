@@ -110,6 +110,26 @@ Click **Set Unmodified to 1** and confirm. The application changes records in th
 
 This feature deliberately uses `1` instead of `0`. It greatly reduces the chance of unselected effects while keeping enough entries available in the pool.
 
+### Auto Configure
+
+Select the effect tags whose weights should be favored, then click **Auto Configure**. After confirmation, the application uses the active filters and effect stacking behavior to adjust every editable Table listed in this manual.
+
+Every automatic adjustment follows these base rules:
+
+- Entries whose original final weight is `0` are locked and remain unchanged.
+- An entry whose current weight differs from its original weight is considered modified and remains unchanged.
+- Entries outside the active filters are reduced to `1`, never `0`.
+- Every increase is based on the entry's current weight immediately before Auto Configure runs.
+
+Filtered entries are adjusted according to their `spCategory`:
+
+- **`spCategory = 10` (self-stackable):** within the same `attachFilterParamId` group, the still-editable entry with the highest Effect ID receives `+300`; the other editable entries in that group are reduced to `1`.
+- **`spCategory = 20` (not self-stackable; different levels stack):** entries in the same `attachFilterParamId` group are ordered by descending Effect ID and receive `+300`, `+250`, `+200`, `+150`, and so on. Each successive increase is 50 lower, with a minimum increase of `0`.
+- **Other `spCategory` values:** only entries with the same Effect ID are adjusted by `+300`; other Effect IDs under the same tag are not changed by that entry.
+
+> [!IMPORTANT]
+> **Auto Configure** affects every editable Table, not only the Table currently displayed. The button remains disabled until at least one effect tag is selected. Review each Table after running it. Use **Reset All Current Changes** if you need to restore every Table.
+
 ## 7. Apply to Other Tables
 
 **Apply to Other Tables** maps changed effects from the current Table to other editable Tables by effect-category tag. It does not simply copy values to identical Effect IDs.

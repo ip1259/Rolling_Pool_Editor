@@ -16,6 +16,7 @@ Rolling Pool Editor 是一套用於《艾爾登法環 黑夜君臨》（ELDEN RI
 - 編輯效果權重並即時計算出現機率。
 - 支援一般 Relic、Deep Relic 與 Debuff 等多種抽獎池 Table。
 - 將篩選結果批次增加權重，或將未修改項目設為 `1`。
+- 依效果的堆疊類型自動設定所有 Table，並保留鎖定項與已修改項。
 - 依效果標籤與 Effect ID 規則，將修改套用至其他 Table。
 - 從既有 CSV 匯入權重設定。
 - 驗證 Debuff 池的最低項目數量並匯出 Smithbox 相容 CSV。
@@ -41,7 +42,7 @@ uv run python src/main.py
 ### 基本工作流程
 
 1. 選擇要編輯的 Table ID。
-2. 使用效果標籤篩選項目並調整權重。
+2. 使用效果標籤篩選項目，手動調整權重或執行「自動設定」。
 3. 檢查各項效果的即時出現機率。
 4. 驗證並匯出 `AttachEffectTableParam.csv`。
 5. 在 Smithbox 中將同一份 CSV 分別匯入 `chanceWeight` 與 `chanceWeight_dlc`。
@@ -75,6 +76,7 @@ The application edits rolling-pool data and exports a Smithbox-compatible `Attac
 - Edit effect weights and recalculate chance rates in real time.
 - Work with standard Relic, Deep Relic, and Debuff pool Tables.
 - Increase filtered weights in batches or set unmodified entries to `1`.
+- Automatically configure every Table according to effect stacking behavior while preserving locked and previously modified entries.
 - Apply changes to other Tables using effect-tag and Effect ID mapping rules.
 - Import weight settings from an existing CSV.
 - Validate the minimum Debuff-pool size and export a Smithbox-compatible CSV.
@@ -100,7 +102,7 @@ Run the application from the repository root. Its entry point is `src/main.py`.
 ### Basic workflow
 
 1. Select the Table ID to edit.
-2. Filter effects by tag and adjust their weights.
+2. Filter effects by tag, then adjust weights manually or use **Auto Configure**.
 3. Review the recalculated chance rates.
 4. Validate and export `AttachEffectTableParam.csv`.
 5. Import the same CSV into both `chanceWeight` and `chanceWeight_dlc` separately in Smithbox.
