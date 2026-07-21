@@ -1,10 +1,4 @@
-"""
-WarningController
-==================
-對應 plan.md「Warning」章節，將 _check_global_warnings 邏輯獨立出來。
-邏輯與原本 100% 相同：檢查 table_id "3000000" 群組中 final_chance_weight != 0
-的資料筆數，若小於 3 筆則顯示警告列。
-"""
+"""Display validation warnings for editable rolling pools."""
 
 from __future__ import annotations
 

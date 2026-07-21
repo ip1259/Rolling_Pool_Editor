@@ -1,1 +1,1 @@
-"""ChanceWeightEditorApp v2 - 模組化重構套件。"""
+"""Rolling Pool Editor GUI package."""

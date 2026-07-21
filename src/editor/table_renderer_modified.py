@@ -1,18 +1,4 @@
-"""
-TableRenderer
-=============
-對應 plan.md「Header Renderer」「Row Renderer」「Widget 更新策略」「Entry 更新」
-「Save Button」章節。
-
-核心優化策略：
-    1. Header 只在語言/主題切換時重建文字與顏色，Weight 修改完全不動 Header。
-    2. Row 的每一個欄位在 configure() 前都會先比對「快取的舊值」，
-       只有值真的改變才呼叫 configure() / delete()+insert()，
-       避免「800 rows × 7 labels = 5600 次 configure」這種暴力刷新。
-    3. Save 按鈕與 Entry 的 <Return> 綁定，只在 Object Pool 建立元件當下綁定一次，
-       之後每次渲染只更新一個「可變狀態容器 (state dict)」裡的 record 參照，
-       不再重複呼叫 configure(command=...) / bind() / unbind()。
-"""
+"""Widget-based table renderer with cached row updates."""
 
 from __future__ import annotations
 
@@ -21,10 +7,6 @@ from typing import Any, Callable, Dict, List, Tuple
 import customtkinter as ctk
 import tkinter as tk
 
-
-# ============================================================
-# Header Renderer
-# ============================================================
 
 def configure_header_columns(frame: ctk.CTkBaseClass) -> None:
     """套用與資料列一致的欄寬比例，確保 Header 與 Row 對齊。"""
@@ -36,7 +18,7 @@ def configure_header_columns(frame: ctk.CTkBaseClass) -> None:
 
 def build_header_labels(frame: ctk.CTkBaseClass, headers: List[str],
                         header_bg: str, text_color: str) -> List[ctk.CTkLabel]:
-    """第一次建立 Header Label (僅執行一次)。"""
+    """Create the header labels."""
     labels = []
     for col_idx, h_text in enumerate(headers):
         lbl_h = ctk.CTkLabel(frame, text=h_text, font=("Helvetica", 12, "bold"),
@@ -49,14 +31,10 @@ def build_header_labels(frame: ctk.CTkBaseClass, headers: List[str],
 
 def update_header_labels(labels: List[ctk.CTkLabel], headers: List[str],
                          header_bg: str, text_color: str) -> None:
-    """語言切換 / 主題切換時呼叫，更新既有 Header Label 的文字與顏色。"""
+    """Update header text and colors after a language or theme change."""
     for lbl_h, h_text in zip(labels, headers):
         lbl_h.configure(text=h_text, fg_color=header_bg, text_color=text_color)
 
-
-# ============================================================
-# Row Renderer / Object Pool
-# ============================================================
 
 def create_row_widgets(canvas: tk.Canvas, on_save: Callable[[Any, ctk.CTkEntry], None]) -> Dict[str, Any]:
     """
@@ -107,7 +85,7 @@ def create_row_widgets(canvas: tk.Canvas, on_save: Callable[[Any, ctk.CTkEntry],
                              fg_color=getattr(theme if False else type("x", (), {})(), "save_btn_normal_bg", "#337AB7"), hover_color="#286090")
     save_btn.grid(row=0, column=1, padx=(2, 2), pady=1, sticky="nsew")
 
-    # --- 驗證：只允許輸入數字與開頭負號 (取代每次 try/except int()) ---
+    # Accept an optional leading minus sign while the user is typing.
     def _validate_digits(proposed: str) -> bool:
         if proposed in ("", "-"):
             return True
@@ -117,7 +95,7 @@ def create_row_widgets(canvas: tk.Canvas, on_save: Callable[[Any, ctk.CTkEntry],
     vcmd = row_frame.register(_validate_digits)
     entry.configure(validate="key", validatecommand=(vcmd, "%P"))
 
-    # --- 穩定 callback：只建立一次，往後只更新 state["record"] ---
+    # The callback reads the record currently assigned to this pooled row.
     state: Dict[str, Any] = {"record": None}
 
     def _handle_save(event=None):
@@ -147,7 +125,7 @@ def create_row_widgets(canvas: tk.Canvas, on_save: Callable[[Any, ctk.CTkEntry],
 
 
 def _set_if_changed(cache: Dict[str, Any], key: str, new_value: Any, apply_fn: Callable[[], None]) -> None:
-    """差異比對核心：值沒變就完全不呼叫 apply_fn (也就是不呼叫 configure())。"""
+    """Apply a widget update only when its cached value changes."""
     if cache.get(key) != new_value:
         apply_fn()
         cache[key] = new_value
@@ -164,9 +142,7 @@ def render_row(
     chance_float: float,
     is_locked: bool,
 ) -> None:
-    """
-    將第 row_index 筆資料填入 widgets。所有欄位皆先比對快取，值不同才 configure()。
-    """
+    """Render a record into a pooled row, updating changed fields only."""
     cache = widgets["_cache"]
     widgets["_state"]["record"] = record
 
@@ -209,7 +185,6 @@ def render_row(
     _set_if_changed(cache, "edit_frame_bg", row_bg,
                     lambda: edit_frame.configure(fg_color=row_bg))
 
-    # --- Entry：值或鎖定狀態不同才 delete + insert / 改變外觀 ---
     entry = widgets["entry"]
     if cache.get("entry_value") != fw or cache.get("entry_locked") != is_locked:
         entry.configure(state="normal")
@@ -218,7 +193,6 @@ def render_row(
         if is_locked:
             entry.configure(state="disabled", fg_color=theme.locked_entry_bg)
         else:
-            # 修正既有小瑕疵：解鎖後應還原為預設底色，避免殘留鎖定時的深色底
             entry.configure(fg_color=theme.entry_default_bg)
         cache["entry_value"] = fw
         cache["entry_locked"] = is_locked

@@ -4,17 +4,14 @@ import xml.etree.ElementTree as ET
 from typing import List, Dict, Tuple
 from concurrent.futures import ProcessPoolExecutor
 
-# 引入 SQLAlchemy 核心、DDL 與條件式元件
 from sqlalchemy import create_engine, MetaData, Table, Column, String, inspect, DDL, case
 from sqlalchemy.dialects.sqlite import insert
 
-# === 設定區 ===
 PROJECT_ROOT = "data/msg"
 DB_NAME = "game_texts.db"
-REPORT_NAME = "integration_report.txt"  # 整合成功報告輸出路徑
-CHUNK_SIZE = 5000  # 資料庫批次寫入的每批筆數
+REPORT_NAME = "integration_report.txt"
+CHUNK_SIZE = 5000
 
-# 定義目標分類（會以此關鍵字進行檔名匹配，並建立對應資料表）
 CATEGORIES = ["Menu", "Goods", "Antique", "AttachEffect"]
 
 
@@ -56,7 +53,7 @@ def get_languages(root_dir: str) -> List[str]:
 
 
 def setup_and_migrate_table(engine, table_name: str, lang_codes: List[str]) -> Table:
-    """動態建立或補齊指定資料表的語系欄位"""
+    """Create a text table and add any missing language columns."""
     metadata = MetaData()
     inspector = inspect(engine)
 
@@ -99,14 +96,12 @@ def integrate_texts():
     print(f"[資訊] 偵測到當前目錄語系: {lang_codes}")
     engine = create_engine(f"sqlite:///{DB_NAME}")
 
-    # 動態配置 4 個分類對應的資料表物件
     tables_map = {}
     for cat in CATEGORIES:
         table_name = f"{cat.lower()}_texts"
         tables_map[cat] = setup_and_migrate_table(
             engine, table_name, lang_codes)
 
-    # 1. 收集並過濾符合分類名稱的 XML 檔案任務
     tasks = []
     for lang in lang_codes:
         lang_dir = os.path.join(PROJECT_ROOT, lang)
@@ -115,28 +110,24 @@ def integrate_texts():
         for file_path in xml_files:
             filename = os.path.basename(file_path)
 
-            # 檢查檔名是否包含指定的分類關鍵字（不區分大小寫）
             matched_cat = None
             for cat in CATEGORIES:
                 if cat.lower() in filename.lower():
                     matched_cat = cat
                     break
 
-            # 只加入有匹配到分類的任務
             if matched_cat:
                 tasks.append((lang, file_path, matched_cat))
 
     print(f"[資訊] 開始多核心平行解析，篩選後總計 {len(tasks)} 個目標 XML 檔案...")
 
-    # 2. 記憶體聚合容器：結構為 db_data[category][text_id][lang] = (content, source_file)
+    # db_data[category][text_id][lang] = (content, source_file)
     db_data: Dict[str, Dict[str, Dict[str, Tuple[str, str]]]] = {
         cat: {} for cat in CATEGORIES}
 
-    # 3. 啟動多進程平行解析
     with ProcessPoolExecutor() as executor:
         results = executor.map(parse_single_file, tasks)
 
-        # 在主進程中收集並執行「權重衝突處理邏輯」
         for lang, file_path, category, filename_field, file_texts in results:
             filename_lower = os.path.basename(file_path).lower()
             is_new_dlc = "dlc01" in filename_lower
@@ -145,34 +136,27 @@ def integrate_texts():
                 if text_id not in db_data[category]:
                     db_data[category][text_id] = {}
 
-                # 如果該語系的該 ID 還沒有資料，直接採納
                 if lang not in db_data[category][text_id]:
                     db_data[category][text_id][lang] = (content, file_path)
                     continue
 
-                # 既有資料比對
                 old_content, old_file = db_data[category][text_id][lang]
                 old_filename_lower = os.path.basename(old_file).lower()
                 is_old_dlc = "dlc01" in old_filename_lower
 
-                # 優先級規則 1：%null% 最低優先級
+                # Non-null text takes precedence over %null%.
                 if content == "%null%":
-                    # 新內容是空值，直接忽略，保留舊內容
                     continue
                 if old_content == "%null%":
-                    # 舊內容是空值，新內容是有效字，無條件覆蓋
                     db_data[category][text_id][lang] = (content, file_path)
                     continue
 
-                # 優先級規則 2：雙方皆為有效字，比對 dlc01 權重
+                # DLC text takes precedence when both values are non-null.
                 if is_new_dlc and not is_old_dlc:
-                    # 新檔案帶有 dlc01，舊檔案沒有 -> 新檔案勝出
                     db_data[category][text_id][lang] = (content, file_path)
                 elif not is_new_dlc and is_old_dlc:
-                    # 舊檔案帶有 dlc01，新檔案沒有 -> 保留舊檔案
                     continue
                 else:
-                    # 優先級規則 3：同燈同分（同為 dlc01 或同為普通檔案），直接拋出錯誤中斷
                     raise ValueError(
                         f"\n[嚴重衝突中斷] 在語系 [{lang}] 的 [{category}] 分類中發現同權重的 ID 重複定義！\n"
                         f"  ├─ 文字 ID: {text_id}\n"
@@ -181,7 +165,6 @@ def integrate_texts():
                         f"請修正原始 XML 檔案後再重新執行整合。"
                     )
 
-    # 4. 依照分類獨立批次安全寫入資料庫
     print("\n[資訊] 衝突檢查完畢（全數通過），開始分表寫入資料庫...")
 
     with engine.begin() as connection:
@@ -193,16 +176,13 @@ def integrate_texts():
                 print(f"  └─ 分類 [{category}] 無任何資料，跳過。")
                 continue
 
-            # 整理成 SQLAlchemy 批次格式
             bulk_values = []
             for text_id, langs_map in category_data.items():
                 row = {'id': text_id}
                 for lang in lang_codes:
-                    # 只取 tuple 中的 content
                     row[lang] = langs_map.get(lang, ('%null%', ''))[0]
                 bulk_values.append(row)
 
-            # 建立 Upsert 語句
             stmt = insert(target_table)
             set_dict = {}
             for lang in lang_codes:
@@ -223,7 +203,6 @@ def integrate_texts():
                 chunk = bulk_values[i:i+CHUNK_SIZE]
                 connection.execute(upsert_stmt, chunk)
 
-    # 5. 產生成功整合報告
     with open(REPORT_NAME, "w", encoding="utf-8") as rep:
         rep.write("=== 遊戲文本精簡整合成功報告 ===\n")
         rep.write("執行狀態: 成功完成（未觸發任何同權重衝突拋錯）\n\n")
