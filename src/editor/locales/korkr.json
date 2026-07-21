@@ -37,5 +37,8 @@
   "btn_clear_filters": "모든 필터 해제",
   "btn_increase_filtered": "필터 항목에 100 추가",
   "increase_filtered_confirm": "필터링된 편집 가능 항목 {count}개의 가중치에 각각 100을 추가하시겠습니까?",
-  "increase_filtered_ok": "필터링된 항목 {count}개의 가중치에 각각 100을 추가했습니다."
+  "increase_filtered_ok": "필터링된 항목 {count}개의 가중치에 각각 100을 추가했습니다.",
+  "btn_auto_configure": "자동 설정",
+  "auto_configure_confirm": "선택한 필터에 따라 편집 가능한 모든 테이블을 자동으로 설정하시겠습니까? 잠긴 항목과 이미 수정된 항목은 변경되지 않습니다.",
+  "auto_configure_ok": "항목 {count}개를 자동으로 설정했습니다."
 }

@@ -37,5 +37,8 @@
   "btn_clear_filters": "Alle Filter löschen",
   "btn_increase_filtered": "Gefilterte um 100 erhöhen",
   "increase_filtered_confirm": "Das Gewicht aller {count} bearbeitbaren gefilterten Einträge um 100 erhöhen?",
-  "increase_filtered_ok": "Das Gewicht von {count} gefilterten Einträgen wurde um 100 erhöht."
+  "increase_filtered_ok": "Das Gewicht von {count} gefilterten Einträgen wurde um 100 erhöht.",
+  "btn_auto_configure": "Automatisch konfigurieren",
+  "auto_configure_confirm": "Alle bearbeitbaren Tabellen anhand der ausgewählten Filter automatisch konfigurieren? Gesperrte und bereits geänderte Einträge bleiben unverändert.",
+  "auto_configure_ok": "{count} Einträge wurden automatisch konfiguriert."
 }

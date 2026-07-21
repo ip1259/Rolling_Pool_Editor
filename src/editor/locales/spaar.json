@@ -37,5 +37,8 @@
   "btn_clear_filters": "Borrar todos los filtros",
   "btn_increase_filtered": "Sumar 100 a los filtrados",
   "increase_filtered_confirm": "¿Quieres sumar 100 al peso de cada uno de los {count} elementos filtrados editables?",
-  "increase_filtered_ok": "Se sumó 100 al peso de {count} elementos filtrados."
+  "increase_filtered_ok": "Se sumó 100 al peso de {count} elementos filtrados.",
+  "btn_auto_configure": "Configuración automática",
+  "auto_configure_confirm": "¿Quieres configurar automáticamente todas las tablas editables según los filtros seleccionados? Los elementos bloqueados y ya modificados no cambiarán.",
+  "auto_configure_ok": "Se configuraron automáticamente {count} elementos."
 }

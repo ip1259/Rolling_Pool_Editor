@@ -37,5 +37,8 @@
   "btn_clear_filters": "すべてのフィルターを解除",
   "btn_increase_filtered": "絞り込み項目に 100 を加算",
   "increase_filtered_confirm": "絞り込まれた編集可能な {count} 件の各ウェイトに 100 を加算しますか？",
-  "increase_filtered_ok": "絞り込まれた {count} 件のウェイトに 100 を加算しました。"
+  "increase_filtered_ok": "絞り込まれた {count} 件のウェイトに 100 を加算しました。",
+  "btn_auto_configure": "自動設定",
+  "auto_configure_confirm": "選択中のフィルターに基づいて、編集可能なすべてのテーブルを自動設定しますか？ロック済みおよび変更済みの項目は変更されません。",
+  "auto_configure_ok": "{count} 件の項目を自動設定しました。"
 }
