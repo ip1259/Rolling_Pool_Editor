@@ -5,9 +5,6 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
 
-# --- 定義資料表模型 ---
-
-
 class AttachEffectFilterCategoryParam(Base):
     __tablename__ = 'AttachEffectFilterCategoryParam'
     ID = Column(String, primary_key=True)
@@ -34,6 +31,7 @@ class AttachEffectParam(Base):
     ID = Column(String, primary_key=True)
     attachTextId = Column(String)
     attachFilterParamId = Column(String)
+    passiveSpEffectId_1 = Column(String)
 
 
 class AttachEffectTableParam(Base):
@@ -43,11 +41,14 @@ class AttachEffectTableParam(Base):
     attachEffectId = Column(String)
     unknown_0 = Column(String)
     Name = Column(String)
-    chanceWeight = Column(Integer)       # 保持 INT
-    chanceWeight_dlc = Column(Integer)   # 修正為 INT
+    chanceWeight = Column(Integer)
+    chanceWeight_dlc = Column(Integer)
 
-# --- 轉換邏輯 ---
 
+class SpEffectParam(Base):
+    __tablename__ = "SpEffectParam"
+    ID = Column(String, primary_key=True)
+    spCategory = Column(String)
 
 def import_csv_to_db(csv_folder="data/param", db_path="game_data/game_param.db"):
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
@@ -65,6 +66,7 @@ def import_csv_to_db(csv_folder="data/param", db_path="game_data/game_param.db")
         "AttachEffectFilterSubCategoryParam": AttachEffectFilterSubCategoryParam,
         "AttachEffectParam": AttachEffectParam,
         "AttachEffectTableParam": AttachEffectTableParam,
+        "SpEffectParam": SpEffectParam,
     }
 
     try:
@@ -90,7 +92,6 @@ def import_csv_to_db(csv_folder="data/param", db_path="game_data/game_param.db")
                             else:
                                 data[column.name] = str(val)
                         else:
-                            # 欄位為空時，預設給 None 讓資料庫留空
                             data[column.name] = None
 
                     records.append(model_cls(**data))
