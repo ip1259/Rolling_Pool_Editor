@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="NightreignRegulationHelper/NightreignRegulationHelper.csproj" />
+  <Project Path="NightreignRegulationHelper.Tests/NightreignRegulationHelper.Tests.csproj" />
+  <Project Path="vendor/SoulsFormats/Andre.SoulsFormats.csproj" />
+</Solution>

@@ -1,0 +1,6 @@
+Table ID:100
+Attach Effect ID:7000000
+修改前 chanceWeight:52
+修改前 chanceWeight_dlc:-1
+修改後 chanceWeight:100
+修改後 chanceWeight_dlc:-1

@@ -1,0 +1,28 @@
+{
+  "formatVersion": 1,
+  "baseSha256": "585D837AE6E4B3B1139293984ED1E4406E920FE6D809F7DCE2D9399C910A9CD6",
+  "param": "AttachEffectTableParam",
+  "editableTableIds": [
+    100,
+    110,
+    200,
+    210,
+    300,
+    310,
+    2000000,
+    2100000,
+    2200000,
+    3000000
+  ],
+  "changes": [
+    {
+      "id": 100,
+      "attachEffectId": 7000000,
+      "occurrence": 0,
+      "expectedChanceWeight": 52,
+      "expectedChanceWeightDlc": -1,
+      "chanceWeight": 100,
+      "chanceWeightDlc": -1
+    }
+  ]
+}
