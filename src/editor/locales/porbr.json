@@ -40,5 +40,11 @@
   "increase_filtered_ok": "100 foi adicionado ao peso de {count} itens filtrados.",
   "btn_auto_configure": "Configuração automática",
   "auto_configure_confirm": "Configurar automaticamente todas as tabelas editáveis conforme os filtros selecionados? Itens bloqueados e já modificados permanecerão inalterados.",
-  "auto_configure_ok": "{count} itens foram configurados automaticamente."
+  "auto_configure_ok": "{count} itens foram configurados automaticamente.",
+  "btn_export_mod": "Exportar MOD",
+  "mod_no_changes": "Nenhum peso editável foi alterado.",
+  "mod_folder_title": "Selecionar pasta do MOD",
+  "mod_overwrite_confirm": "Já existe um regulation.bin em:\n{path}\n\nSubstituir?",
+  "mod_export_failed": "Falha ao exportar o MOD:\n{error}",
+  "mod_export_ok": "MOD exportado com sucesso.\nItens alterados: {count}\nSaída: {path}"
 }

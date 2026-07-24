@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import threading
 from typing import List, Set, Tuple
 
 import customtkinter as ctk
@@ -10,6 +11,7 @@ from tkinter import messagebox, filedialog
 
 from game_param_res import GameParam, EditableAttachEffectTableRecord
 from game_trext_res import GameText
+from mod_export import ModExporter, ModExportError, NoModChangesError
 
 from .theme_cache import ThemeCache
 from .localization_cache import LocalizationCache
@@ -209,6 +211,16 @@ class ChanceWeightEditorApp(ctk.CTk):
             state="disabled", command=self._on_auto_configure_clicked)
         self.btn_auto_configure.grid(row=0, column=3, padx=5, sticky="e")
 
+        self.btn_export_mod = ctk.CTkButton(
+            self.top_ctrl_frame,
+            text=self._get_text("btn_export_mod"),
+            fg_color=("#E67E22", "#D35400"),
+            hover_color=("#D35400", "#A84300"),
+            font=("Helvetica", 12, "bold"),
+            command=self._on_export_mod_clicked,
+        )
+        self.btn_export_mod.grid(row=0, column=4, padx=5, sticky="e")
+
         self.lbl_warning = ctk.CTkLabel(self.right_panel, text="", font=("Helvetica", 12, "bold"),
                                         fg_color=("#F2DEDE", "#3A1F1F"), text_color=("#A94442", "#D9534F"),
                                         height=32, corner_radius=4, anchor="w", padx=10)
@@ -296,6 +308,7 @@ class ChanceWeightEditorApp(ctk.CTk):
         self.btn_import.configure(text=self._get_text("btn_import"))
         self.btn_export.configure(text=self._get_text("btn_export"))
         self.btn_auto_configure.configure(text=self._get_text("btn_auto_configure"))
+        self.btn_export_mod.configure(text=self._get_text("btn_export_mod"))
 
         self._refresh_header()
 
@@ -528,3 +541,69 @@ class ChanceWeightEditorApp(ctk.CTk):
 
         except (ValueError, PermissionError) as e:
             messagebox.showerror(self._get_text("msg_err"), str(e))
+
+    def _on_export_mod_clicked(self):
+        exporter = ModExporter(GameParam)
+        try:
+            manifest = exporter.build_manifest()
+            GameParam.validate_editable()
+        except NoModChangesError:
+            messagebox.showwarning(
+                self._get_text("msg_err"),
+                self._get_text("mod_no_changes"),
+            )
+            return
+        except ValueError as error:
+            messagebox.showerror(self._get_text("msg_err"), str(error))
+            return
+
+        mod_directory = filedialog.askdirectory(
+            title=self._get_text("mod_folder_title"),
+        )
+        if not mod_directory:
+            return
+
+        output_path = os.path.join(mod_directory, "regulation.bin")
+        if os.path.exists(output_path) and not messagebox.askyesno(
+            self._get_text("btn_export_mod"),
+            self._get_text("mod_overwrite_confirm").format(path=output_path),
+        ):
+            return
+
+        self.btn_export_mod.configure(state="disabled")
+
+        def export_worker():
+            try:
+                result = exporter.export(mod_directory, manifest)
+            except (ModExportError, ValueError) as error:
+                self.after(
+                    0,
+                    lambda export_error=error:
+                    self._finish_mod_export(error=export_error),
+                )
+                return
+            self.after(
+                0,
+                lambda export_result=result:
+                self._finish_mod_export(result=export_result),
+            )
+
+        threading.Thread(target=export_worker, daemon=True).start()
+
+    def _finish_mod_export(self, result=None, error=None):
+        self.btn_export_mod.configure(state="normal")
+        if error is not None:
+            messagebox.showerror(
+                self._get_text("msg_err"),
+                self._get_text("mod_export_failed").format(error=error),
+            )
+            return
+
+        details = result.get("details", {}) if isinstance(result, dict) else {}
+        messagebox.showinfo(
+            self._get_text("msg_success"),
+            self._get_text("mod_export_ok").format(
+                path=details.get("outputPath", ""),
+                count=details.get("modifiedCount", 0),
+            ),
+        )

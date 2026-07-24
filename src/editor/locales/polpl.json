@@ -40,5 +40,11 @@
   "increase_filtered_ok": "Dodano 100 do wagi {count} filtrowanych elementów.",
   "btn_auto_configure": "Konfiguruj automatycznie",
   "auto_configure_confirm": "Automatycznie skonfigurować wszystkie edytowalne tabele według wybranych filtrów? Zablokowane i wcześniej zmienione elementy pozostaną bez zmian.",
-  "auto_configure_ok": "Automatycznie skonfigurowano {count} elementów."
+  "auto_configure_ok": "Automatycznie skonfigurowano {count} elementów.",
+  "btn_export_mod": "Eksportuj MOD",
+  "mod_no_changes": "Nie zmieniono żadnych edytowalnych wag.",
+  "mod_folder_title": "Wybierz folder MOD-a",
+  "mod_overwrite_confirm": "Plik regulation.bin już istnieje w:\n{path}\n\nNadpisać?",
+  "mod_export_failed": "Nie udało się wyeksportować MOD-a:\n{error}",
+  "mod_export_ok": "MOD został wyeksportowany.\nZmienione wpisy: {count}\nPlik: {path}"
 }

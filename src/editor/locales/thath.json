@@ -40,5 +40,11 @@
   "increase_filtered_ok": "เพิ่มน้ำหนัก 100 ให้รายการที่กรองแล้ว {count} รายการ",
   "btn_auto_configure": "ตั้งค่าอัตโนมัติ",
   "auto_configure_confirm": "ต้องการตั้งค่าตารางที่แก้ไขได้ทั้งหมดโดยอัตโนมัติตามตัวกรองที่เลือกหรือไม่? รายการที่ล็อกและรายการที่แก้ไขแล้วจะไม่ถูกเปลี่ยนแปลง",
-  "auto_configure_ok": "ตั้งค่าอัตโนมัติแล้ว {count} รายการ"
+  "auto_configure_ok": "ตั้งค่าอัตโนมัติแล้ว {count} รายการ",
+  "btn_export_mod": "ส่งออก MOD",
+  "mod_no_changes": "ยังไม่มีการแก้ไขค่าน้ำหนักที่แก้ไขได้",
+  "mod_folder_title": "เลือกโฟลเดอร์ MOD",
+  "mod_overwrite_confirm": "มี regulation.bin อยู่แล้วที่:\n{path}\n\nต้องการเขียนทับหรือไม่?",
+  "mod_export_failed": "ส่งออก MOD ไม่สำเร็จ:\n{error}",
+  "mod_export_ok": "ส่งออก MOD สำเร็จ\nรายการที่แก้ไข: {count}\nตำแหน่ง: {path}"
 }

@@ -39,5 +39,11 @@
   "increase_filtered_ok": "Added 100 to {count} filtered records.",
   "btn_auto_configure": "Auto Configure",
   "auto_configure_confirm": "Automatically configure all editable tables using the selected filters? Locked and modified records will be preserved.",
-  "auto_configure_ok": "Automatically configured {count} records."
+  "auto_configure_ok": "Automatically configured {count} records.",
+  "btn_export_mod": "Export MOD",
+  "mod_no_changes": "No editable weights have been modified.",
+  "mod_folder_title": "Select MOD Folder",
+  "mod_overwrite_confirm": "A regulation.bin already exists at:\n{path}\n\nOverwrite it?",
+  "mod_export_failed": "Failed to export MOD:\n{error}",
+  "mod_export_ok": "MOD exported successfully.\nChanged records: {count}\nOutput: {path}"
 }

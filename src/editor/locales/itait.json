@@ -40,5 +40,11 @@
   "increase_filtered_ok": "Aggiunto 100 al peso di {count} elementi filtrati.",
   "btn_auto_configure": "Configurazione automatica",
   "auto_configure_confirm": "Configurare automaticamente tutte le tabelle modificabili in base ai filtri selezionati? Gli elementi bloccati e già modificati resteranno invariati.",
-  "auto_configure_ok": "Configurati automaticamente {count} elementi."
+  "auto_configure_ok": "Configurati automaticamente {count} elementi.",
+  "btn_export_mod": "Esporta MOD",
+  "mod_no_changes": "Nessun peso modificabile è stato cambiato.",
+  "mod_folder_title": "Seleziona cartella MOD",
+  "mod_overwrite_confirm": "Esiste già un regulation.bin in:\n{path}\n\nSovrascriverlo?",
+  "mod_export_failed": "Esportazione MOD non riuscita:\n{error}",
+  "mod_export_ok": "MOD esportato correttamente.\nElementi modificati: {count}\nDestinazione: {path}"
 }

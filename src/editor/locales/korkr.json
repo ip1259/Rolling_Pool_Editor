@@ -40,5 +40,11 @@
   "increase_filtered_ok": "필터링된 항목 {count}개의 가중치에 각각 100을 추가했습니다.",
   "btn_auto_configure": "자동 설정",
   "auto_configure_confirm": "선택한 필터에 따라 편집 가능한 모든 테이블을 자동으로 설정하시겠습니까? 잠긴 항목과 이미 수정된 항목은 변경되지 않습니다.",
-  "auto_configure_ok": "항목 {count}개를 자동으로 설정했습니다."
+  "auto_configure_ok": "항목 {count}개를 자동으로 설정했습니다.",
+  "btn_export_mod": "MOD 내보내기",
+  "mod_no_changes": "수정된 편집 가능 가중치가 없습니다.",
+  "mod_folder_title": "MOD 폴더 선택",
+  "mod_overwrite_confirm": "다음 위치에 regulation.bin이 이미 있습니다:\n{path}\n\n덮어쓰시겠습니까?",
+  "mod_export_failed": "MOD 내보내기 실패:\n{error}",
+  "mod_export_ok": "MOD를 내보냈습니다.\n변경 항목: {count}\n출력 위치: {path}"
 }

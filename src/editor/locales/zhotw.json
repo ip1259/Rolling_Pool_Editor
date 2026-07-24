@@ -40,5 +40,11 @@
   "increase_filtered_ok": "已將 {count} 個篩選項目權重各加 100。",
   "btn_auto_configure": "自動設定",
   "auto_configure_confirm": "要依目前篩選條件自動設定所有可編輯表格嗎？鎖定項與已修改項不會變更。",
-  "auto_configure_ok": "已自動設定 {count} 個項目。"
+  "auto_configure_ok": "已自動設定 {count} 個項目。",
+  "btn_export_mod": "輸出 MOD",
+  "mod_no_changes": "目前沒有已修改的可編輯權重。",
+  "mod_folder_title": "選擇 MOD 資料夾",
+  "mod_overwrite_confirm": "以下位置已有 regulation.bin：\n{path}\n\n是否覆寫？",
+  "mod_export_failed": "輸出 MOD 失敗：\n{error}",
+  "mod_export_ok": "MOD 輸出成功。\n修改筆數：{count}\n輸出位置：{path}"
 }

@@ -40,5 +40,11 @@
   "increase_filtered_ok": "تمت إضافة 100 إلى وزن {count} من العناصر المصفاة.",
   "btn_auto_configure": "الإعداد التلقائي",
   "auto_configure_confirm": "هل تريد إعداد جميع الجداول القابلة للتحرير تلقائيًا باستخدام عوامل التصفية المحددة؟ ستبقى العناصر المقفلة والمعدلة دون تغيير.",
-  "auto_configure_ok": "تم إعداد {count} عنصرًا تلقائيًا."
+  "auto_configure_ok": "تم إعداد {count} عنصرًا تلقائيًا.",
+  "btn_export_mod": "تصدير MOD",
+  "mod_no_changes": "لم يتم تعديل أي وزن قابل للتحرير.",
+  "mod_folder_title": "حدد مجلد MOD",
+  "mod_overwrite_confirm": "يوجد ملف regulation.bin بالفعل في:\n{path}\n\nهل تريد استبداله؟",
+  "mod_export_failed": "فشل تصدير MOD:\n{error}",
+  "mod_export_ok": "تم تصدير MOD بنجاح.\nالعناصر المعدلة: {count}\nالمسار: {path}"
 }

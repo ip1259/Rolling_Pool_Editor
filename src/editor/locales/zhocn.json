@@ -40,5 +40,11 @@
   "increase_filtered_ok": "已将 {count} 个筛选项目权重各加 100。",
   "btn_auto_configure": "自动设置",
   "auto_configure_confirm": "要根据当前筛选条件自动设置所有可编辑表格吗？锁定项和已修改项不会更改。",
-  "auto_configure_ok": "已自动设置 {count} 个项目。"
+  "auto_configure_ok": "已自动设置 {count} 个项目。",
+  "btn_export_mod": "导出 MOD",
+  "mod_no_changes": "当前没有已修改的可编辑权重。",
+  "mod_folder_title": "选择 MOD 文件夹",
+  "mod_overwrite_confirm": "以下位置已存在 regulation.bin：\n{path}\n\n是否覆盖？",
+  "mod_export_failed": "导出 MOD 失败：\n{error}",
+  "mod_export_ok": "MOD 导出成功。\n修改条目：{count}\n输出位置：{path}"
 }
