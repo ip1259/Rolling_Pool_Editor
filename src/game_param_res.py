@@ -239,7 +239,7 @@ class GameParamManager:
         for k in self._editable_chance_map.keys():
             self.update_chance_rate_map(k)
 
-        print("🔄 編輯層與物理序列已完成再初始化（含 unknown_0 與幽靈項隔離機制）。")
+        print("編輯層與物理序列已完成再初始化（含 unknown_0 與幽靈項隔離機制）。")
 
     def update_chance_rate_map(self, id):
         total_weight = sum(
