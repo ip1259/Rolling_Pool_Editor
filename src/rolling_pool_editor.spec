@@ -8,6 +8,11 @@ datas = [
     ("game_data/game_param.db", "src/game_data"),
     ("game_data/game_texts.db", "src/game_data"),
     ("editor/locales", "editor/locales"),
+    ("../Grand Only/regulation.bin", "Grand Only"),
+    (
+        "../helper/NightreignRegulationHelper/bin/Release/net10.0/win-x64/publish",
+        "NightreignRegulationHelper",
+    ),
 ]
 datas += collect_data_files("customtkinter")
 

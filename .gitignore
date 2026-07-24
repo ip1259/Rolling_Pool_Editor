@@ -6,6 +6,10 @@ dist/
 wheels/
 *.egg-info
 
+# .NET-generated files
+**/bin/
+**/obj/
+
 # Virtual environments
 .venv
 .vscode/launch.json
@@ -16,3 +20,5 @@ data/*
 src/extract/AttachEffectTableParam_Duchess.csv
 src/extract/AttachEffectTableParam_ironeye_bow.csv
 src/extract/AttachEffectTableParam.csv
+Grand Only/helper diff regulation.bin
+Grand Only/regulation copy.bin
