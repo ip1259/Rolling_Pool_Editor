@@ -1,5 +1,6 @@
 [center][size=6][b]Rolling Pool Editor[/b][/size]
 [size=3]Relic Rolling-Pool Weight Editor for ELDEN RING NIGHTREIGN[/size][/center]
+GitHub Link: [url=https://github.com/ip1259/Rolling_Pool_Editor]Rolling Pool Editor[/url]
 
 [size=5][b]English[/b][/size]
 
@@ -7,7 +8,7 @@
 
 Rolling Pool Editor is a GUI modding utility for adjusting Relic effect weights and roll probabilities in [b]ELDEN RING NIGHTREIGN[/b]. It supports standard Relic pools, Deep Relic pools, and the Debuff pool.
 
-The tool exports a Smithbox-compatible [code]AttachEffectTableParam.csv[/code]. It does not modify [code]regulation.bin[/code] directly; use Smithbox to import the exported values, then load the resulting mod with Mod Engine 3.
+The tool can directly export a verified [b]regulation.bin[/b] for Mod Engine 3 using its bundled Regulation Ver. 1.03.5 base. Smithbox is not required. CSV import and export remain available as an optional advanced workflow.
 
 [size=4][b]Features[/b][/size]
 
@@ -16,10 +17,11 @@ The tool exports a Smithbox-compatible [code]AttachEffectTableParam.csv[/code]. 
 [*]Edit weights and recalculate roll probabilities in real time.
 [*]Automatically configure every editable rolling-pool Table according to effect stacking behavior.
 [*]Preserve locked entries and entries you have already modified.
-[*]Increase filtered entries in batches or set untouched entries to a weight of [code]1[/code].
+[*]Increase filtered entries in batches or set untouched entries to a weight of 1.
 [*]Apply changes to other Tables using effect-tag and Effect ID mapping rules.
 [*]Import existing weight settings from CSV.
 [*]Validate the minimum number of active Debuff entries before export.
+[*]Export a verified [b]regulation.bin[/b] directly, without Smithbox.
 [*]Multilingual interface with Dark and Light themes.
 [*]Automatically save language, theme, and filter selections.
 [/list]
@@ -40,8 +42,9 @@ The tool exports a Smithbox-compatible [code]AttachEffectTableParam.csv[/code]. 
 
 [list=1]
 [*]Download and extract the Windows x64 archive.
-[*]Run [code]RollingPoolEditor.exe[/code].
+[*]Run [b]RollingPoolEditor.exe[/b].
 [*]No separate Python installation is required for the packaged version.
+[*]Tested on a Windows computer without Python, the .NET SDK/runtime, or Smithbox; the exported regulation has also been confirmed to work in game.
 [/list]
 
 [size=4][b]Basic Workflow[/b][/size]
@@ -51,9 +54,9 @@ The tool exports a Smithbox-compatible [code]AttachEffectTableParam.csv[/code]. 
 [*]Choose one or more effect tags.
 [*]Edit weights manually or use [b]Auto Configure[/b].
 [*]Review the recalculated probabilities in every affected Table.
-[*]Click [b]Validate & Export CSV[/b].
-[*]Import both [code]chanceWeight[/code] and [code]chanceWeight_dlc[/code] from the exported CSV into Smithbox.
-[*]Save the modified [code]regulation.bin[/code] as a mod and load it through Mod Engine 3.
+[*]Click [b]Export MOD[/b] and select your MOD folder.
+[*]Confirm before replacing an existing [b]regulation.bin[/b].
+[*]Load the selected MOD folder through Mod Engine 3.
 [/list]
 
 [size=4][b]Auto Configure Rules[/b][/size]
@@ -63,43 +66,55 @@ The [b]Auto Configure[/b] button is available only when at least one effect tag 
 [b]Stacking category meanings:[/b]
 
 [list]
-[*][code]spCategory = 10[/code]: the effect can stack with another copy of itself.
-[*][code]spCategory = 20[/code]: the same effect level cannot stack with itself, but different levels of that effect can stack together.
-[*]Other [code]spCategory[/code] values: Auto Configure treats the effect as an exact Effect ID instead of extending its adjustment to other levels under the same tag.
+[*][b]spCategory = 10[/b]: the effect can stack with another copy of itself.
+[*][b]spCategory = 20[/b]: the same effect level cannot stack with itself, but different levels of that effect can stack together.
+[*]Other [b]spCategory[/b] values: Auto Configure treats the effect as an exact Effect ID instead of extending its adjustment to other levels under the same tag.
 [/list]
 
 [b]Weight adjustment rules:[/b]
 
 [list]
-[*]Entries whose original final weight is [code]0[/code] are locked and remain unchanged.
+[*]Entries whose original final weight is 0 are locked and remain unchanged.
 [*]Entries whose current weight differs from their original weight are treated as modified and remain unchanged.
-[*]Unfiltered entries are reduced to [code]1[/code], never [code]0[/code].
-[*][code]spCategory = 10[/code]: within the same effect-tag group, the editable entry with the highest Effect ID receives [code]+300[/code]; the remaining editable entries are reduced to [code]1[/code].
-[*][code]spCategory = 20[/code]: entries in the same effect-tag group are ordered by descending Effect ID and receive [code]+300[/code], [code]+250[/code], [code]+200[/code], and so on. The increase is reduced by 50 per level and never goes below 0.
-[*]Other [code]spCategory[/code] values: matching Effect IDs receive [code]+300[/code].
+[*]Unfiltered entries are reduced to 1, never 0.
+[*][b]spCategory = 10[/b]: within the same effect-tag group, the editable entry with the highest Effect ID receives +300; the remaining editable entries are reduced to 1.
+[*][b]spCategory = 20[/b]: entries in the same effect-tag group are ordered by descending Effect ID and receive +300, +250, +200, and so on. The increase is reduced by 50 per level and never goes below 0.
+[*]Other [b]spCategory[/b] values: matching Effect IDs receive +300.
 [/list]
 
-[size=4][b]Smithbox Import[/b][/size]
+[size=4][b]Direct MOD Export[/b][/size]
 
-[color=orange][b]IMPORTANT:[/b] Smithbox imports only one Specific Field at a time. Import the same CSV twice: once for [code]chanceWeight[/code] and once for [code]chanceWeight_dlc[/code]. Do not use [b]All Field[/b].[/color]
+The application always uses its bundled [b]Grand Only regulation.bin[/b], based on Regulation Ver. 1.03.5. A custom input regulation cannot be selected. The output filename is fixed to [b]regulation.bin[/b].
+
+[list]
+[*]Export is refused when no weight has been modified.
+[*]Only changed rows in editable Tables are written.
+[*]Locked entries and all unrelated regulation data remain unchanged.
+[*]The bundled base is never overwritten.
+[*]The generated file is reopened and verified before export succeeds.
+[/list]
+
+[size=4][b]Optional Smithbox Import[/b][/size]
+
+[color=orange][b]IMPORTANT:[/b] Smithbox imports only one Specific Field at a time. Import the same CSV twice: once for [b]chanceWeight[/b] and once for [b]chanceWeight_dlc[/b]. Do not use [b]All Field[/b].[/color]
 
 [list=1]
-[*]Open your target [code]regulation.bin[/code] in Smithbox.
-[*]Open [code]AttachEffectTableParam[/code].
-[*]Import the exported CSV into the Specific Field [code]chanceWeight[/code].
-[*]Repeat the import for [code]chanceWeight_dlc[/code] using the same CSV.
-[*]Save the modified [code]regulation.bin[/code].
+[*]Open your target [b]regulation.bin[/b] in Smithbox.
+[*]Open [b]AttachEffectTableParam[/b].
+[*]Import the exported CSV into the Specific Field [b]chanceWeight[/b].
+[*]Repeat the import for [b]chanceWeight_dlc[/b] using the same CSV.
+[*]Save the modified [b]regulation.bin[/b].
 [/list]
 
 [size=4][b]Important Notes[/b][/size]
 
-[color=red][b]WARNING:[/b] Use Mod Engine 3 to load the modified file. Do not overwrite the original game [code]regulation.bin[/code]. Never go online with modified game files active; doing so may put your account at risk.[/color]
+[color=red][b]WARNING:[/b] Use Mod Engine 3 to load the modified file. Do not overwrite the original game [b]regulation.bin[/b]. Never go online with modified game files active; doing so may put your account at risk.[/color]
 
 [list]
 [*]Original zero-weight entries are permanently locked during an editing session.
-[*]Using a weight of [code]1[/code] is recommended when you want to make an effect very rare without removing it from the pool.
-[*]The Debuff pool ([code]3000000[/code]) must retain at least three entries with non-zero final weights or CSV validation will fail.
-[*]Weight changes are not stored in the application settings. Export a CSV before closing if you want to keep your work.
+[*]Using a weight of 1 is recommended when you want to make an effect very rare without removing it from the pool.
+[*]The Debuff pool (3000000) must retain at least three entries with non-zero final weights or validation will fail.
+[*]Weight changes are not stored in the application settings. Export a MOD or CSV before closing if you want to keep your work.
 [/list]
 
 [hr]
@@ -110,7 +125,7 @@ The [b]Auto Configure[/b] button is available only when at least one effect tag 
 
 Rolling Pool Editor 是一套用於 [b]《艾爾登法環 黑夜君臨》（ELDEN RING NIGHTREIGN）[/b]的圖形化 Mod 輔助工具，可調整遺物效果權重與抽取機率，並支援一般 Relic、Deep Relic 及 Debuff 等抽獎池。
 
-本工具會輸出與 Smithbox 相容的 [code]AttachEffectTableParam.csv[/code]，不會直接修改 [code]regulation.bin[/code]。請使用 Smithbox 匯入輸出的數值，再透過 Mod Engine 3 載入完成的 Mod。
+本工具可使用內建的 Regulation Ver. 1.03.5 基底，直接輸出經驗證的 [b]regulation.bin[/b] 供 Mod Engine 3 載入，不需要使用 Smithbox。CSV 匯入／匯出仍保留為選用的進階流程。
 
 [size=4][b]主要功能[/b][/size]
 
@@ -119,10 +134,11 @@ Rolling Pool Editor 是一套用於 [b]《艾爾登法環 黑夜君臨》（ELDE
 [*]編輯權重並即時計算抽取機率。
 [*]依效果堆疊類型，自動設定所有可編輯抽獎池 Table。
 [*]保留鎖定項目及使用者已修改的項目。
-[*]批次增加篩選項權重，或將未修改項目設為 [code]1[/code]。
+[*]批次增加篩選項權重，或將未修改項目設為 1。
 [*]依效果標籤與 Effect ID 規則，將修改套用至其他 Table。
 [*]從既有 CSV 匯入權重設定。
 [*]匯出前驗證 Debuff 池的最低有效項目數量。
+[*]不需 Smithbox，直接輸出經驗證的 [b]regulation.bin[/b]。
 [*]支援多語言介面以及 Dark／Light 主題。
 [*]自動保存語言、主題與篩選條件。
 [/list]
@@ -143,8 +159,9 @@ Rolling Pool Editor 是一套用於 [b]《艾爾登法環 黑夜君臨》（ELDE
 
 [list=1]
 [*]下載並解壓縮 Windows x64 版本。
-[*]執行 [code]RollingPoolEditor.exe[/code]。
+[*]執行 [b]RollingPoolEditor.exe[/b]。
 [*]打包版本不需要另外安裝 Python。
+[*]已在未安裝 Python、.NET SDK／Runtime 及 Smithbox 的 Windows 電腦完成測試，輸出的 regulation 亦已確認可在遊戲中正常使用。
 [/list]
 
 [size=4][b]基本操作流程[/b][/size]
@@ -154,9 +171,9 @@ Rolling Pool Editor 是一套用於 [b]《艾爾登法環 黑夜君臨》（ELDE
 [*]勾選一個或多個效果標籤。
 [*]手動調整權重，或使用「[b]自動設定[/b]」。
 [*]逐一檢查所有受影響 Table 的即時機率。
-[*]按下「[b]檢查並匯出 CSV 參數檔[/b]」。
-[*]在 Smithbox 中，將同一份 CSV 的 [code]chanceWeight[/code] 與 [code]chanceWeight_dlc[/code] 分別匯入。
-[*]將修改後的 [code]regulation.bin[/code] 作為 Mod，透過 Mod Engine 3 載入。
+[*]按下「[b]輸出 MOD[/b]」並選擇 MOD 資料夾。
+[*]若已有 [b]regulation.bin[/b]，確認是否覆寫。
+[*]透過 Mod Engine 3 載入所選的 MOD 資料夾。
 [/list]
 
 [size=4][b]自動設定規則[/b][/size]
@@ -166,41 +183,53 @@ Rolling Pool Editor 是一套用於 [b]《艾爾登法環 黑夜君臨》（ELDE
 [b]堆疊分類數值的含義：[/b]
 
 [list]
-[*][code]spCategory = 10[/code]：代表效果自身可疊加，也就是相同等級、相同效果可以同時生效。
-[*][code]spCategory = 20[/code]：代表效果自身不可疊加，但不同等級的相同類型效果可以同時疊加。
-[*]其他 [code]spCategory[/code]：自動設定會將其視為獨立 Effect ID，不會把調整延伸到相同標籤下的其他等級。
+[*][b]spCategory = 10[/b]：代表效果自身可疊加，也就是相同等級、相同效果可以同時生效。
+[*][b]spCategory = 20[/b]：代表效果自身不可疊加，但不同等級的相同類型效果可以同時疊加。
+[*]其他 [b]spCategory[/b]：自動設定會將其視為獨立 Effect ID，不會把調整延伸到相同標籤下的其他等級。
 [/list]
 
 [b]權重調整規則：[/b]
 
 [list]
-[*]原始最終權重為 [code]0[/code] 的項目會被鎖定，不會修改。
+[*]原始最終權重為 0 的項目會被鎖定，不會修改。
 [*]目前權重已不同於原始權重的項目視為已修改，不會被自動設定覆蓋。
-[*]非篩選項會降為 [code]1[/code]，不會降為 [code]0[/code]。
-[*][code]spCategory = 10[/code]：在相同效果標籤群組中，Effect ID 最大且可修改的項目增加 [code]300[/code]，其餘可修改項目降為 [code]1[/code]。
-[*][code]spCategory = 20[/code]：相同效果標籤群組依 Effect ID 由大至小排列，權重增加量依序為 [code]300[/code]、[code]250[/code]、[code]200[/code]……，每級遞減 50，最低增加量為 0。
-[*]其他 [code]spCategory[/code]：相同 Effect ID 的項目增加 [code]300[/code]。
+[*]非篩選項會降為 1，不會降為 0。
+[*][b]spCategory = 10[/b]：在相同效果標籤群組中，Effect ID 最大且可修改的項目增加 300，其餘可修改項目降為 1。
+[*][b]spCategory = 20[/b]：相同效果標籤群組依 Effect ID 由大至小排列，權重增加量依序為 300、250、200……，每級遞減 50，最低增加量為 0。
+[*]其他 [b]spCategory[/b]：相同 Effect ID 的項目增加 300。
 [/list]
 
-[size=4][b]Smithbox 匯入方式[/b][/size]
+[size=4][b]直接輸出 MOD[/b][/size]
 
-[color=orange][b]重要：[/b]Smithbox 一次只能匯入一個 Specific Field。請使用同一份 CSV 操作兩次，分別匯入 [code]chanceWeight[/code] 與 [code]chanceWeight_dlc[/code]。請勿使用 [b]All Field[/b]。[/color]
+程式永遠使用內建、以 Regulation Ver. 1.03.5 為基礎的 [b]Grand Only regulation.bin[/b]，不提供自訂輸入檔案；輸出檔名固定為 [b]regulation.bin[/b]。
+
+[list]
+[*]沒有任何權重修改時會拒絕輸出。
+[*]只寫入可編輯 Table 中實際修改的資料列。
+[*]鎖定項及 regulation 內其他資料均維持不變。
+[*]內建基底永遠不會被覆寫。
+[*]產物重新開啟並通過驗證後才算輸出成功。
+[/list]
+
+[size=4][b]選用的 Smithbox 匯入方式[/b][/size]
+
+[color=orange][b]重要：[/b]Smithbox 一次只能匯入一個 Specific Field。請使用同一份 CSV 操作兩次，分別匯入 [b]chanceWeight[/b] 與 [b]chanceWeight_dlc[/b]。請勿使用 [b]All Field[/b]。[/color]
 
 [list=1]
-[*]使用 Smithbox 開啟目標 [code]regulation.bin[/code]。
-[*]開啟 [code]AttachEffectTableParam[/code]。
-[*]將輸出的 CSV 匯入 Specific Field [code]chanceWeight[/code]。
-[*]使用同一份 CSV，再次匯入 [code]chanceWeight_dlc[/code]。
-[*]儲存修改後的 [code]regulation.bin[/code]。
+[*]使用 Smithbox 開啟目標 [b]regulation.bin[/b]。
+[*]開啟 [b]AttachEffectTableParam[/b]。
+[*]將輸出的 CSV 匯入 Specific Field [b]chanceWeight[/b]。
+[*]使用同一份 CSV，再次匯入 [b]chanceWeight_dlc[/b]。
+[*]儲存修改後的 [b]regulation.bin[/b]。
 [/list]
 
 [size=4][b]重要注意事項[/b][/size]
 
-[color=red][b]警告：[/b]建議使用 Mod Engine 3 載入修改後的檔案，不要覆蓋遊戲原始的 [code]regulation.bin[/code]。請勿在修改檔案啟用時連線遊玩，否則帳號可能面臨風險。[/color]
+[color=red][b]警告：[/b]建議使用 Mod Engine 3 載入修改後的檔案，不要覆蓋遊戲原始的 [b]regulation.bin[/b]。請勿在修改檔案啟用時連線遊玩，否則帳號可能面臨風險。[/color]
 
 [list]
 [*]原始權重為 0 的項目在本次編輯期間會永久鎖定。
-[*]若只想讓效果極少出現，建議將權重設為 [code]1[/code]，不要直接從獎池移除。
-[*]Debuff 池（[code]3000000[/code]）必須至少保留三個最終權重非 0 的項目，否則 CSV 驗證會失敗。
-[*]程式設定不會保存權重修改。若要保留工作成果，關閉程式前請先匯出 CSV。
+[*]若只想讓效果極少出現，建議將權重設為 1，不要直接從獎池移除。
+[*]Debuff 池（3000000）必須至少保留三個最終權重非 0 的項目，否則驗證會失敗。
+[*]程式設定不會保存權重修改。若要保留工作成果，關閉程式前請先輸出 MOD 或匯出 CSV。
 [/list]

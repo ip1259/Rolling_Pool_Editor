@@ -2,15 +2,17 @@
 
 ## 1. Introduction
 
-Rolling Pool Editor is an open-source Python GUI tool for adjusting relic rolling-pool weights. It calculates each effect's chance from its weight in real time and exports a Smithbox-compatible `AttachEffectTableParam.csv`.
+Rolling Pool Editor is an open-source GUI tool for adjusting relic rolling-pool weights. It calculates each effect's chance from its weight in real time and can directly export a verified `regulation.bin` for use as a mod.
 
-The exported CSV must be imported into `AttachEffectTableParam` through Smithbox. The resulting `regulation.bin` can then be used as a mod. See the [Smithbox Guide](SMITHBOX_GUIDE_en.md) for the complete import procedure.
+The existing Smithbox-compatible `AttachEffectTableParam.csv` import and export workflow remains available as an optional advanced workflow. See the [Smithbox Guide](SMITHBOX_GUIDE_en.md) for that procedure.
 
 ## 2. Starting the application
 
 ### Packaged Windows x64 version
 
 A packaged Windows x64 build is provided. Extract the package and run `RollingPoolEditor.exe`; a separate Python installation is not required.
+
+This build has been tested on a Windows computer without Python, the .NET SDK/runtime, or Smithbox installed. It starts and exports successfully, and the exported `regulation.bin` has been confirmed to work in game.
 
 ### Running from source
 
@@ -38,7 +40,7 @@ The application automatically saves the selected language, theme, and checked ef
 ```
 
 > [!NOTE]
-> The configuration file does not save weight edits, the selected Table ID, sorting, or expanded and collapsed category states. Weight changes must be exported to CSV to be retained.
+> The configuration file does not save weight edits, the selected Table ID, sorting, or expanded and collapsed category states. Export a MOD or CSV before closing if you want to retain the result.
 
 ### Effect Tag Filter
 
@@ -183,6 +185,16 @@ If fewer than three entries remain non-zero:
 - A warning appears in the interface.
 - The CSV fails validation and cannot be exported.
 
-## 11. Smithbox and mod loading
+## 11. Exporting a MOD directly
 
-After exporting, import both `chanceWeight` and `chanceWeight_dlc` from the same CSV into Smithbox. Smithbox can select only one field per import, so the import must be performed twice. See the [Smithbox Guide](SMITHBOX_GUIDE_en.md) for detailed steps and mod-safety warnings.
+1. Finish editing the required Tables.
+2. Click **Export MOD**. The application refuses to export when no weights have been modified.
+3. Select the MOD folder. The output filename is always `regulation.bin`.
+4. If that folder already contains `regulation.bin`, confirm whether it may be overwritten.
+5. After the success message appears, load the selected MOD folder through Mod Engine 3.
+
+The application always uses its bundled `Grand Only/regulation.bin`, based on Regulation Ver. 1.03.5. A custom input regulation cannot be selected. Only changed rows belonging to editable Table IDs are included; locked entries and all other regulation data remain unchanged. The bundled base is never overwritten, and the generated file is reopened and verified before it is accepted as output.
+
+## 12. Optional Smithbox workflow
+
+If you prefer the CSV workflow, import both `chanceWeight` and `chanceWeight_dlc` from the same exported CSV into Smithbox. Smithbox can select only one field per import, so the import must be performed twice. See the [Smithbox Guide](SMITHBOX_GUIDE_en.md) for detailed steps and mod-safety warnings.

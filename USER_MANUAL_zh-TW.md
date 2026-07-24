@@ -2,15 +2,17 @@
 
 ## 1. 程式簡介
 
-Rolling Pool Editor 是用來調整遺物抽獎池權重的開源 Python 圖形化工具。程式會依各項效果的權重即時計算出現機率，並輸出與 Smithbox 相容的 `AttachEffectTableParam.csv`。
+Rolling Pool Editor 是用來調整遺物抽獎池權重的開源圖形化工具。程式會依各項效果的權重即時計算出現機率，並可直接輸出經驗證、能作為 Mod 使用的 `regulation.bin`。
 
-輸出的 CSV 必須透過 Smithbox 匯入 `AttachEffectTableParam`，再將修改後的 `regulation.bin` 作為 Mod 使用。完整匯入方式請參閱 [Smithbox 使用說明](SMITHBOX_GUIDE_zh-TW.md)。
+既有的 Smithbox 相容 `AttachEffectTableParam.csv` 匯入／匯出流程仍予保留，作為選用的進階操作方式。完整步驟請參閱 [Smithbox 使用說明](SMITHBOX_GUIDE_zh-TW.md)。
 
 ## 2. 啟動程式
 
 ### Windows x64 打包版
 
 專案提供 Windows x64 打包版本。解壓縮後，執行 `RollingPoolEditor.exe` 即可，不需要另外安裝 Python。
+
+此版本已在未安裝 Python、.NET SDK／Runtime 及 Smithbox 的 Windows 電腦完成啟動與輸出測試；輸出的 `regulation.bin` 亦已確認可在遊戲中正常使用。
 
 ### 從原始碼執行
 
@@ -38,7 +40,7 @@ uv run python src/main.py
 ```
 
 > [!NOTE]
-> 設定檔不會保存權重修改、目前選擇的 Table ID、排序方式或分類的展開／收合狀態。權重修改必須匯出為 CSV 才能保留。
+> 設定檔不會保存權重修改、目前選擇的 Table ID、排序方式或分類的展開／收合狀態。若要保留成果，關閉程式前請先輸出 MOD 或匯出 CSV。
 
 ### 效果標籤過濾器
 
@@ -183,6 +185,16 @@ chanceWeight_dlc
 - 介面會顯示警告。
 - CSV 將無法通過驗證及匯出。
 
-## 11. Smithbox 與 Mod 載入
+## 11. 直接輸出 MOD
 
-匯出後，必須將同一份 CSV 的 `chanceWeight` 與 `chanceWeight_dlc` 分別匯入 Smithbox；Smithbox 一次只能選擇一個欄位，因此需要操作兩次。詳細步驟與 Mod 安全警示請參閱 [Smithbox 使用說明](SMITHBOX_GUIDE_zh-TW.md)。
+1. 完成所需 Table 的權重調整。
+2. 按下「輸出 MOD」。若目前沒有任何權重修改，程式會拒絕輸出。
+3. 選擇 MOD 資料夾；輸出檔名固定為 `regulation.bin`。
+4. 若該資料夾已存在 `regulation.bin`，確認是否允許覆寫。
+5. 顯示成功訊息後，透過 Mod Engine 3 載入所選的 MOD 資料夾。
+
+程式永遠使用內建、以 Regulation Ver. 1.03.5 為基礎的 `Grand Only/regulation.bin`，不提供自訂輸入檔案。輸出只包含可編輯 Table 中實際修改的資料列；鎖定項及 regulation 內其他資料均維持不變。內建基底不會被覆寫，而且產物必須能重新開啟並通過驗證才會成為正式輸出。
+
+## 12. 選用的 Smithbox 流程
+
+若偏好 CSV 流程，請將同一份匯出 CSV 的 `chanceWeight` 與 `chanceWeight_dlc` 分別匯入 Smithbox；Smithbox 一次只能選擇一個欄位，因此需要操作兩次。詳細步驟與 Mod 安全警示請參閱 [Smithbox 使用說明](SMITHBOX_GUIDE_zh-TW.md)。
