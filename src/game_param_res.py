@@ -67,6 +67,8 @@ class EditableAttachEffectTableRecord:
         self._attachEffectId = attachEffectId
         self._chanceWeight = chanceWeight
         self._chanceWeight_dlc = chanceWeight_dlc
+        self._originalChanceWeight = chanceWeight
+        self._originalChanceWeightDlc = chanceWeight_dlc
         self._originWeight = chanceWeight if chanceWeight_dlc == -1 else chanceWeight_dlc
 
     @property
@@ -81,6 +83,10 @@ class EditableAttachEffectTableRecord:
     def chanceWeight(self) -> int: return self._chanceWeight
     @property
     def chanceWeight_dlc(self) -> int: return self._chanceWeight_dlc
+    @property
+    def original_chance_weight(self) -> int: return self._originalChanceWeight
+    @property
+    def original_chance_weight_dlc(self) -> int: return self._originalChanceWeightDlc
 
     @property
     def final_chance_weight(self) -> int:
@@ -257,6 +263,33 @@ class GameParamManager:
                 )
         return True
 
+    def build_mod_changes(self) -> list[dict]:
+        """Return modified editable rows with stable duplicate occurrences."""
+        changes = []
+        occurrences = {}
+
+        for record in self._editable_table_order:
+            identity = (record.ID, record.attachEffectId)
+            occurrence = occurrences.get(identity, 0)
+            occurrences[identity] = occurrence + 1
+
+            if record.ID not in EditableAttachEffectTableRecord.EDITABLE_TABLES:
+                continue
+            if not record.is_modified:
+                continue
+
+            changes.append({
+                "id": int(record.ID),
+                "attachEffectId": int(record.attachEffectId),
+                "occurrence": occurrence,
+                "expectedChanceWeight": record.original_chance_weight,
+                "expectedChanceWeightDlc": record.original_chance_weight_dlc,
+                "chanceWeight": record.chanceWeight,
+                "chanceWeightDlc": record.chanceWeight_dlc,
+            })
+
+        return changes
+
     def export_editable_to_csv(self, output_path: str = "data/param/AttachEffectTableParam.csv"):
         """透過物理清單平鋪輸出，保證輸出檔案的行數、欄位順序與重複項完整性"""
         self.validate_editable()
@@ -296,7 +329,9 @@ class GameParamManager:
                     row["ID"]), str(row["attachEffectId"])
                 record = self.EditableAttachEffectTable.get(
                     table_id, {}).get(effect_id)
-                if record is None or record.origin_chance_weight == 0:
+                if (table_id not in EditableAttachEffectTableRecord.EDITABLE_TABLES
+                        or record is None
+                        or record.origin_chance_weight == 0):
                     continue
                 dlc_weight = int(row["chanceWeight_dlc"])
                 record.update_weight(
